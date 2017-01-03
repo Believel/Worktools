@@ -1,0 +1,3 @@
+author:Believel
+总结工作中常用的一些原生js方法，jquery小组件......
+1.DOM操作常用的方法

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tap</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    ul li{
+      list-style: none;
+      width: 100px;
+      height: 20px;
+      border: 1px solid #def
+    }
+    .active{
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li class="active">羽绒服1</li>
+    <li>羽绒服2</li>
+    <li>羽绒服3</li>
+    <li>羽绒服4</li>
+    <li>羽绒服5</li>
+    <li>羽绒服6</li>
+    <li>羽绒服7</li>
+  </ul>
+  <script src="tap.js"></script>
+  <script>
+    var ul = document.querySelector('ul');
+    var lis = ul.querySelectorAll('li');
+    Believel.tap(ul,function(e){
+      // console.log(this);//window
+      var tapli = e.target;
+      for(var i =0;i<lis.length;i++){
+        lis[i].className = "";
+      }
+      tapli.className= 'active';
+    })
+  </script>
+</body>
+</html>
