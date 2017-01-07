@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+  <style>
+    #gotoTop{
+      position: fixed;
+      background-color: pink;
+      width: 50px;
+      height: 100px;
+      right: 20px;
+      bottom: 100px;
+      line-height: 100px;
+      display: none;
+    }
+    .glyphicon{
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body style="height: 5000px">
+  <div id="gotoTop" class="text-center">
+    <div class="glyphicon glyphicon-plane"></div>
+  </div>
+</body>
+<script src="../js/jquery.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script>
+  $(function(){
+    //页面滚动
+    $(document).scroll(function(){
+        var top = $(this).scrollTop();
+        console.log(top);
+        if(top>200){
+          $('#gotoTop').fadeIn();
+        }else{
+          $('#gotoTop').fadeOut();
+        }
+    })
+      
+   
+    $('#gotoTop').on('click',function(){
+        $(document).scrollTop(0)
+    })
+  })
+</script>
+</html>

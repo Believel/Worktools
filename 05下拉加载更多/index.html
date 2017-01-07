@@ -4,8 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>Document</title>
+  <style>
+    html,body{
+      height: 100%;
+      margin:0;
+      padding: 0;
+    }
+    .outerScroller{
+      position: absolute;
+      top: -40px;
+      bottom: 0;
+      width: 100%;
+      left: 0;
+      overflow: hidden;
+    }
+    .scroll{
+      width: 100%;
+      margin-top: 0px;
+      padding: 0px;
+      height: 100%;
+      overflow: auto;
+    }
+  </style>
 </head>
 <body>
-  
+  <div class="outerScroller" id="outerScroller">
+    <!-- 下拉加载的盒子 -->
+    <div class="refreshBox" id="refreshBox">
+        <div class="reloader" id="reloader"></div>
+        <div class="refreshArrow" id="refreshArrow">
+        </div>
+    </div>
+     <ul id="scroll" class="scroll">
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+       <li>A</li>
+     </ul>
+  </div> 
 </body>
 </html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>json数据处理</title>
+</head>
+<body>
+  <script>
+    var data = [
+         {
+        "cg_id": 1,
+        "cg_pid": 0,
+        "cg_name": "前端开发",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:02:59.000Z"
+    },
+    {
+        "cg_id": 2,
+        "cg_pid": 0,
+        "cg_name": "后端开发",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:03:35.000Z"
+    },
+    {
+        "cg_id": 3,
+        "cg_pid": 1,
+        "cg_name": "HTML",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:27:10.000Z"
+    },
+    {
+        "cg_id": 4,
+        "cg_pid": 2,
+        "cg_name": "PHP",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:41:13.000Z"
+    },
+    {
+        "cg_id": 5,
+        "cg_pid": 2,
+        "cg_name": "NodeJS",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:41:24.000Z"
+    },
+    {
+        "cg_id": 6,
+        "cg_pid": 0,
+        "cg_name": "视觉设计",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:41:39.000Z"
+    },
+    {
+        "cg_id": 7,
+        "cg_pid": 0,
+        "cg_name": "数据库",
+        "cg_order": 9,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:42:10.000Z"
+    },
+    {
+        "cg_id": 8,
+        "cg_pid": 7,
+        "cg_name": "mySql",
+        "cg_order": 11,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:42:25.000Z"
+    },
+    {
+        "cg_id": 9,
+        "cg_pid": 7,
+        "cg_name": "mongDB",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:42:40.000Z"
+    },
+    {
+        "cg_id": 10,
+        "cg_pid": 7,
+        "cg_name": "Oracle",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:42:52.000Z"
+    },
+    {
+        "cg_id": 11,
+        "cg_pid": 6,
+        "cg_name": "Photoshop",
+        "cg_order": 10,
+        "cg_is_hide": 0,
+        "cg_update_time": "2017-01-07T14:43:36.000Z"
+    }
+    ];
+    //每一项要处理成下面这样
+// {
+//   cg_id:1,
+//   cg_pid:0,
+//   childs:[
+//           {cg_id:5,
+//            cg_pid:1
+//           },
+//           {cg_id:8,
+//            cg_pid:1
+//           },
+//           ]
+//           .......
+// }
+
+//思路：遍历数据 + 递归
+// 参数1：要处理的数据(数组对象)
+// 参数2：要找的具体的值
+function getTree(data,pid){
+  var arr = [],
+      args = arguments;
+       //遍历提供的数组对象
+    for(var i =0; i < data.length; i++){
+      //如果每一项中的cg_pid的值和所传入的值是相等
+      if(data[i]['cg_pid']===pid){
+        //为每一项添加一个childs属性，并赋初值为空数组[]
+        data[i].childs = [];
+        //如果传入了第三个参数
+        if(args[2]){
+           // 就把数据放在第三个参数里面
+          args[2].push(data[i])
+        }else{
+          //否则把这一项放在arr数组中
+          arr.push(data[i]);
+        }
+        // 继续下一个
+         getTree(data,data[i]['cg_id'],data[i].childs);
+      }
+  }
+  return arr;
+}
+console.log(getTree(data,0))
+
+
+//介绍json在线工具：http://www.bejson.com/
+  </script>
+</body>
+</html>
