@@ -62,34 +62,122 @@ var utils = (function(){
     }
     document.documentElement[attr] = document.body[attr] = value;
   }
+  /**
+   * 得到网页大小：
+   * 注意：1.这个函数必须在页面加载完成后才能运行，否则document对象还没生成，浏览器会报错
+   *       2.clientWidth和clientHeight都是只读属性，不能对它们赋值
+   * return:返回浏览器窗口的高和宽
+   */
+  function getViewPort(){
+    if(document.compatMode=="BackCompat"){//IE的"quick Mode"
+      return{
+        height:document.body.clientHeight,
+        width:document.body.clientWidth
+      }
+    }else{
+      return {
+        height:document.documentElement.clientHeight,
+        width:document.documentElement.clientWidth
+      }
+    }
+  }
+/**
+ * 得到网页大小的另一种方法
+ * 如果网页内容能够在浏览器窗口中全部显示，不出现滚动条，那么网页的clientWidth和scrollWidth应该相等。
+ * 但是实际上，不同浏览器有不同的处理，这两个值未必相等。所以，我们需要取它们之中较大的那个值
+ */
+function getPagearea(){
+   if(document.compatMode=="BackCompat"){//IE的"quick Mode"
+      return{
+        height:Math.max(document.body.scrollHeight,
+                        document.body.clientHeight),
+        width:Math.max(document.body.scrollWidth,
+                       document.body.clientWidth)
+      }
+    }else{
+      return {
+        height:Math.max(document.documentElement.scrollHeight,
+                        document.documentElement.clientHeight),
+        width:Math.max(document.documentElement.scrollWidth,
+                       document.documentElement.clientWidth)
+      }
+    }
+}
+/**
+ * 获得网页元素的绝对位置：指该元素的左上角相对于整张网页左上角的坐标。
+ * 方法：累加offsetLeft或者offsetTop值得到
+ */
+//得到绝对位置的横坐标
+function getEleLeft(element){
+  var left = element.offsetLeft,
+      current = element.offsetParent;
+  while(current !== null){
+    left += current.offsetLeft;
+    current = current.offsetParent;
+
+  }
+  return left;
+}
+//得到绝对位置的纵坐标
+function getEleTop(element){
+  var top = element.offsetTop,
+      current = element.offsetParent;
+  while(current !== null){
+    top += current.offsetTop;
+    current = current.offsetParent;
+
+  }
+  return top;
+}
+/**
+ * 获得元素的相对位置：指该元素左上角相对于浏览器窗口左上角的坐标
+ * 方法：将绝对坐标减去页面的滚动条滚动的距离
+ */
+function getEleViewLeft(element){
+  var left = element.offsetLeft,
+      current = element.offsetParent;
+  while(current !== null){
+    left += current.offsetLeft;
+    current = current.offsetParent;
+  }
+  if(document.compatMode=="BackCompat"){
+    var elementScrollLeft = document.body.scrollLeft
+  }else{
+    var elementScrollLeft = document.documentElement.scrollLeft;
+  }
+  return left - elementScrollLeft;
+}
+
+function getEleViewTop(element){
+  var top = element.offsetTop,
+      current = element.offsetParent;
+  while(current !== null){
+    top += current.offsetTop;
+    current = current.offsetParent;
+  }
+  if(document.compatMode=="BackCompat"){
+    var elementScrollTop = document.body.scrollTop
+  }else{
+    var elementScrollTop = document.documentElement.scrollTop;
+  }
+  return top - elementScrollTop;
+}
+
+
   return {
     likeArray:likeArray,
     JsonParse:JsonParse,
     offset:offset,
     getWin:getWin,
 
-    getByClass: getByClass,
-    hasClass: hasClass,
-    addClass: addClass,
-    removeClass: removeClass,
-    getCss: getCss,
-    setCss: setCss,
-    setGroupCss: setGroupCss,
-    css: css,
-    children: children,
-    prev: prev,
-    prevAll: prevAll,
-    next: next,
-    nextAll: nextAll,
-    sibling: sibling,
-    siblings: siblings,
-    firstChild: firstChild,
-    lastChild: lastChild,
-    getIndex: getIndex,
-    appendChild: appendChild,
-    prepend: prepend,
-    insertBefore: insertBefore,
-    insertAfter: insertAfter
+    getViewPort:getViewPort, //网页大小
+    getPagearea:getPagearea,
+    getEleLeft:getEleLeft,
+    getEleTop:getEleTop,
+    getEleViewLeft:getEleViewLeft,
+    getEleViewTop:getEleViewTop
+
+
   }
 
 })()
