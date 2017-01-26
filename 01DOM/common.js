@@ -235,12 +235,12 @@ function replaceClassName(elment,oldStr,newStr){
  */
 function addLoadEvent(fn) {
     var oldOnLoad = window.onload;
-    if (typeof oldOnLoad === "function") {
+    if (typeof oldOnLoad === "function") {//说明已经绑定此事件
         window.onload = function () {
-            oldOnLoad();
-            fn();
+            oldOnLoad();//之前绑定的要执行
+            fn();     //新绑定的也要执行
         };
-    } else {
+    } else {// 没有绑定
         window.onload = function () {
             fn();
         };

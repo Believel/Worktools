@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>string</title>
+</head>
+<body>
+  <script>
+    //字符串属性 length
+  var str = '自己好好生活';
+  // console.log(str.length);//6
+  // 字符串的查找 indexOf() lastIndexOf()
+  //indexOf()返回指定内容在元字符串中的位置,
+  // lastIndexOf() 从后往前找，只找第一个匹配的
+  // console.log(str.indexOf('生'))// 4
+  // console.log(str.lastIndexOf('生'))// 4
+  // console.log(str.indexOf('生',3))
+
+  // 字符方法  charAt()  charCodeAt()  
+  // console.log(str.charAt(0));//自
+  // console.log(str.charCodeAt(0))//33258
+  //操作方法
+  console.log(str.slice(0,3));
+  console.log(str.slice(-2,-1))//生
+  console.log(str.concat("abc"));//自己好好生活abc
+  console.log(str.substring(0,3))//自己好
+  console.log(str.substr(0,2))//自己
+  //其他方法
+  // trim() split()
+  var str1 = '   abcds '
+  console.log(str1.trim())//abcds
+  console.log(str.split())//["自己好好生活"]
+  console.log(str.split(""))//["自", "己", "好", "好", "生", "活"]
+  //大小写转换
+  var str2 = 'abcs';
+  console.log(str2.toUpperCase())//ABCS
+  console.log(str2.toLocaleUpperCase())//ABCS
+  var str3 = 'ABCD'
+  console.log(str3.toLowerCase())//abcd
+  console.log(str3.toLocaleLowerCase())//abcd
+  //匹配方法
+  
+ var str4 = "abcoefoxyozzopp";
+ //把字符串中所有的o替换成!
+ console.log(str4.replace(/o/g,'!')) // abc!ef!xy!zz!pp
+ do{
+    str4 = str4.replace('o', '!');
+ }while(str4.indexOf('o')!==-1)
+ console.log(str4);// abc!ef!xy!zz!pp
+ 
+ //执行一个查找，看该字符串对象与一个正则表达式是否匹配。如果匹配成功，则 search() 返回正则表达式在字符串中首次匹配项的索引。否则，返回 -1。
+ var str = 'this is cat';
+ var reg = /i[a-z]/;
+ console.log(str.search(reg))//2
+ console.log(str.search('A'))//-1
+ //match()
+ //当字符串匹配到正则表达式（regular expression）时，match() 方法会提取匹配项，返回一个数组。如果正则表达式没有 g 标志，返回和 RegExp.exec(str) 相同的结果。而且返回的数组拥有一个额外的 input 属性，该属性包含原始字符串。另外，还拥有一个 index 属性，该属性表示匹配结果在原字符串中的索引（以0开始）。如果正则表达式包含 g 标志，则该方法返回一个包含所有匹配结果的数组。如果没有匹配到，则返回 null。
+  var str = 'this is cat hae';
+  var reg1 = /h[a-z]/;
+  var reg2 = /h[a-z]/g;
+  console.log(str.match(reg1));//["hi", index: 1, input: "this is cat hae"]
+  console.log(str.match(reg2));//["hi", "ha"]
+  </script>
+</body>
+</html>
