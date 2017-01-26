@@ -69,7 +69,8 @@ function sortNum(a, b){
       len = this.length,
       i;
   for(i=0; i<len; i++){
-    newArr[i] = this[i];
+    // newArr[i] = this[i];
+    newArr.push(this[i]);
   }
   return newArr;
 }
@@ -92,4 +93,18 @@ function sortNum(a, b){
     }
   }
   return newArr;
+}
+
+/**
+ * 找到数组中每一个a出现的位置
+ */
+function findWord(arr, value){
+    var index = -1;
+    do{
+      index = arr.indexOf(value,index+1); 
+      if(index!==-1){
+        console.log(index);
+      }
+    }while(index!==-1) 
+
 }

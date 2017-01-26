@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>内置对象</title>
+</head>
+<body>
+  <script>
+    // 数组对象Array(引用类型)
+    var arr = [1, 2, 3, 4];
+    //转换数组方法
+    console.log(arr.valueOf())//返回数组对象本身        [1,2,3,4]
+    console.log(arr.toString())//把数组转换成字符串      1,2,3,4
+    console.log(arr.join('-'))//把数组中的每一项进行拼接 1-2-3-4
+    console.log(arr.join())//把数组中的每一项进行拼接    1,2,3,4
+    //检测数组
+    console.log(typeof arr);//object
+    console.log(arr instanceof Array)//检验是不是数组对象 true
+    console.log(Array.isArray(arr));//ES5中的方法，低版本浏览器不兼容 true
+    // 增删方法
+    console.log(arr.push('a','b'));//向数组中添加元素，返回添加之后的数组长度  6
+    console.log(arr.pop());// 从末尾元素删除元素，返回删除的元素 b
+    console.log(arr.unshift('d','e'))//从前面开始添加元素，返回添加之后元素的长度 7
+    console.log(arr); // ['d','e',1,2,3,4,'a']
+    console.log(arr.shift())//从前面开始删除元素，返回删除的元素 d
+    // 排序方法
+    console.log(arr.reverse())//倒序排列数组   ["a", 4, 3, 2, 1, "e"]
+    console.log(arr.sort(function(a,b){
+      return a -b;
+    })) //  按一定的规则排序   ["a", 1, 2, 3, 4, "e"]
+    console.log(arr.sort()) //不传参数按unicode编码排序  [1, 2, 3, 4, "a", "e"]
+    var arr1 = [7,8];
+    // 操作方法
+    console.log(arr.concat(arr1));//拼接数组，不影响原数组  [1, 2, 3, 4, "a", "e", 7, 8]
+    console.log(arr.slice(0,1));//[1]切割数组，第一个参数是数组的索引，第二个参数是切割的个数。不影响原数组
+    console.log(arr.slice(4))//若不传第二个参数,表示从当前索引知道数组的最后一项都要删除  ["a", "e"]
+    console.log(arr);//[1, 2, 3, 4, "a", "e"]
+    console.log(arr.splice(0,2))//删除获得替换某些元素,第一个参数是开始索引，第二个参数是删除个数，之后参数是从删除位置要插入的元素，不传的话是没有插入的元素。影响原来的数组
+    console.log(arr);//[3, 4, "a", "e"]
+    console.log(arr.splice(1,2,1,2,3,4,5));//[4,"a"]
+
+    // 位置方法
+    console.log(arr);//[3, 1, 2, 3, 4, 5, "e"]
+    console.log(arr.indexOf('e'));//6  从左往右找到第一个指定元素，返回该元素的索引，如果没找到返回-1,第一个参数是目标值，第二个参数是从索引值哪个开始查找
+    console.log(arr.indexOf('e',2));//6   从左往右找到第一个指定元素，返回该元素的索引，如果没找到返回-1
+    console.log(arr.indexOf('a'));//-1
+    console.log(arr.lastIndexOf('e'));//6 从右向左找到最后一个指定元素，返回该元素的索引，如果没找到返回-1
+
+
+    //  Es5新方法 ：every()、filter()、forEach()、map()、some()
+    //  不会影响原数组
+    console.log(arr);//[3, 1, 2, 3, 4, 5, "e"]
+    arr.pop();
+   console.log( arr.every(function(item, index){
+        if(item>1){
+          return true;
+        }
+    }))//false
+   //遍历数组，在每一项元素后面触发一个回调函数，通过判断，返回一个布尔值。只要有一项不满足判断，就返回false
+    var newArr = arr.filter(function(item){
+      // return item>2
+     if(item>2)
+      return true;
+    }) //根据一定的规则，过滤符合要求的元素组成的新数组
+    console.log(newArr)//[3, 3, 4, 5]
+
+    arr.forEach(function(item,index){
+      console.log(item);
+    })//遍历数组的每一项
+
+    console.log(
+      arr.map(function(item,index){
+      return item*3
+    }))//[9, 3, 6, 9, 12, 15]   根据一定的规则，返回新的数组
+
+    console.log(arr.some(function(item,index){
+        if(item>1){
+          return true;
+        }
+    }))//true
+    //遍历数组，在每一项元素后面触发一个回调函数，通过判断，返回一个布尔值。只要有一个满足判断的就返回true
+  </script>
+</body>
+</html>
