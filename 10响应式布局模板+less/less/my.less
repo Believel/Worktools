@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* 字符编码一定要有 */
+
+/* 引入其他的less文件 */
+@import 'base';
+
+/* ======变量======== */
+@mainColor:#E93223;
+body{
+  color: @mainColor;
+}
+/* 在 LESS 中，混入是指在一个 CLASS 中引入另外一个已经定义的 CLASS，
+就像在当前 CLASS 中增加一个属性一样。 */
+.red{
+  color:@mainColor;
+}
+.border{
+  border:1px solid @mainColor;
+}
+/* mixin混入 */
+.box{
+  .red();
+  .border();
+}
+.redBorder{
+  border:1px solid #aoaoao;
+}
+/* 嵌套：采用从外到内的选择器嵌套定义，要么采用给特定元素加 CLASS 或 ID 的方式 */
+#wjs_banner{
+  .carousel-inner{
+    > div.item{
+      a.img_box{
+        background: url("../images/slide_01_2000x410.jpg") no-repeat center center;
+        height: 410px;
+        /*调用redBorder mixin*/
+        display: block;
+        .redBorder();
+        /*调用@mainColor 变量*/
+        &:hover{
+          color: @mainColor;
+        }
+      }
+      a.img_mobile{
+        width: 100%;
+        display: block;
+        img{
+          width: 100%;
+          display: block;
+        }
+      }
+    }
+  }
+}
+/*定义方法 定义传参 和变量一样  但是有默认的值一定要设置 */
+.borderRadius(@size:10px){
+  -webkit-border-radius: @size;
+  -moz-border-radius:@size;
+  -o-border-radius: @size;
+  -ms-border-radius: @size;
+  border-radius: @size;
+}
+/* 编译代码： lessc  my.less  my.css */
+/* 把my.less编译成my.css文件 */

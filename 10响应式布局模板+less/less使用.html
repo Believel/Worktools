@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>less</title>
+  <link rel="stylesheet/less" type="text/less" href="less/base.less">
+</head>
+<body>
+<!-- 其实不支持直接将less运行在项目中，最好还是讲less编译成css -->
+<script>
+  less = {
+    env: "development",
+    async: false,
+    fileAsync: false,
+    poll: 1000,
+    functions: {},
+    dumpLineNumbers: "comments",
+    relativeUrls: false,
+    rootpath: ":/a.com/"
+  };
+</script>
+  <script src="less.min.js"></script>
+</body>
+</html>

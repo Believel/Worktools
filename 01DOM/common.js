@@ -452,7 +452,9 @@ function getMin(arr) {
 }
 //event的兼容 写法
 var event = event || window.event;
-//pageX和PageY的兼容写法
+//clientX和clientY  相对于浏览器，以当前窗口的左上角为基准点
+//pageX和pageY  相对于页面，以当前文档的左上角为基准点
+//pageX和PageY的兼容写法  IE6、7、8不支持pageX和pageY
 var pageX = event.pageX || event.clientX + document.documentElement.scrollLeft;
 var pageY = event.pageY || event.clientY + document.documentElement.scrollTop;
 //阻止冒泡的兼容写法
@@ -460,9 +462,9 @@ if(event.stopPropagation)
 {
    event.stopPropagation();
 }else{
-    event.cancelable = true;//ie678支持的方法
+    event.cancelBubble = true;//ie678支持的方法
 }
-//事件目标的兼容写法
+//事件目标的兼容写法:通过事件目标可以找到事件的根源
 var target = event.target || event.srcElement;
 //判断选中文字的代码(兼容写法)
 var txt = window.getSelection ? window.getSelection().toString() : document.selection.createRange().text;
@@ -473,7 +475,52 @@ window.getSelection ? window.getSelection().removeAllRanges() : document.selecti
  * 去除字符串的空白部分
  * @param str
  * @returns {string|XML|void}
+ * \s非字符(space)
  */
 function trim(str) {
     return str.replace(/^\s+|\s+$/g, "");
 }
+// 事件委托的原理
+//原因：页面加载的时候无法获取后来动态生成的结构，所以无法去注册事件
+//1要委托事件的父元素 2事件类型 3事件能发生在哪些标签上 4发生事件后要执行的函数
+function on(element, type, selector, fn){
+    element["on" + type] = function(event){
+        var e = window.event || event;
+        if(e.target.tagName===selector.toUppercase()){
+            event.target.fn = fn;
+            event.target.fn();
+        }
+
+    }
+}
+
+/**
+ * [eventUtil 事件对象工具包]
+ * @type {Object}
+ */
+var eventUtil = {
+    //获取事件对象
+    getEvent: function (event) {
+        return event || window.event;
+    },
+    //获取页面的水平坐标
+    getPageX: function (event) {
+        return event.pageX || event.clientX + document.documentElement.scrollLeft;
+    },
+    //获取页面的竖直坐标
+    getPageY: function (event) {
+        return event.pageY || event.clientY + document.documentElement.scrollTop;
+    },
+    //阻止事件冒泡
+    stopPropagation: function (event) {
+        if (event.stopPropagation) {
+            event.stopPropagation();
+        } else {
+            event.cancelBubble = true;
+        }
+    },
+    //获取触发事件的目标
+    getTarget: function (event) {
+        return event.target || event.srcElement;
+    }
+};
