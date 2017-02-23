@@ -1,0 +1,93 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        管理员
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control" ng-change="search(false)">
+                <option value="">所有相关</option>
+                <option value="1">用户名</option>
+                <option value="2">邮箱</option>
+                <option value="3">已废弃</option>
+                <option value="4">已禁止</option>
+            </select>
+        </div>
+        <div class="col-lg-4 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name" placeholder="搜索关键词：管理员名称、与管理员关联的系统角色名称 或者 权限名称">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-sm-1">名称</th>
+                <th class="col-sm-2">角色</th>
+                <th class="col-sm-1">邮箱</th>
+                <th class="col-sm-1">密码</th>
+                <th class="col-sm-1">等级</th>
+                <th class="col-sm-1">状态</th>
+                <th class="col-sm-1"><a href="#/admin/form/" class="btn btn-primary btn-xs">添加管理员</a></th>
+            </tr>
+        </thead>
+        <tbody ng-show="!loadingState">
+            <tr ng-repeat="item in list">
+                <!--显示状态-->
+                <td ng-if="!item.isModified">{{item.Name}}</td>
+                <td ng-if="item.isModified"><input type="text" class="form-control" ng-model="item.Name" /></td>
+                <td>
+                    <a href="javascript:;" ng-click="viewRoles(item)">
+                        {{item.Roles|merge:'Name':4:'...'|none:'未关联角色'}}
+                        <span class="text-success">({{item.Roles.length}})</span>
+                    </a>
+                </td>
+                <td>{{item.Email}}</td>
+                <td ng-if="!item.isModified">{{item.Password}}</td>
+                <td ng-if="item.isModified"><input type="password" class="form-control" ng-model="item.Password" /></td>
+                <td ng-if="!item.isModified">
+                    {{item.PrivilegeLevel|enumVals:'AdminLevel'}}
+                </td>
+                <td ng-if="item.isModified">
+                    <select ng-model="item.PrivilegeLevel" ng-options="choose.Val as choose.Name for choose in level" class="form-control"> </select>
+                </td>
+                <td ng-if="!item.isModified">
+                    {{item.State|enumVals:'AdminState'}}
+                </td>
+                <td ng-if="item.isModified">
+                    <select ng-model="item.State" ng-options="choose.Val as choose.Name for choose in adminState" class="form-control"> </select>
+                </td>
+                <td ng-if="!item.isModified">
+                    <button type="button" ng-click="remove(item)" class="btn btn-danger btn-xs">废弃</button>
+                    <a href="#/admin/form/{{item.Id}}" class="btn btn-success btn-xs">编辑</a>
+                </td>
+                <td ng-if="item.isModified">
+                    <button type="button" ng-click="cancel(item)" class="btn btn-danger btn-xs">取消</button>
+                    <button type="button" ng-click="save(item)" class="btn btn-success btn-xs">保存</button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-show="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

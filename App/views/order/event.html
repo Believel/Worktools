@@ -1,0 +1,25 @@
+﻿<div ng-controller="orderEvents">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="form-group ">
+                <th class="col-sm-2 ">订单消息</th>
+                <th class="col-sm-2 ">发生时间</th>
+                <th class="col-sm-2 ">订单状态</th>
+            </tr>
+        </thead>
+        <tbody ng-if="!loadingState">
+            <tr ng-repeat="item in list" class="pointer">
+                <td>{{item.Message}}</td>
+                <td>{{item.EventTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>{{item.State|enumVals:'OrderState'}}</td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="12" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

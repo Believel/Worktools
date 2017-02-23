@@ -1,0 +1,79 @@
+﻿<div class="modal-header">
+    <h2 class="modal-title">播放券详细信息</h2><br />
+    <form class="form-horizontal">
+        <div class="col-sm-2 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">已使用</option>
+                <option value="2">未使用</option>
+            </select>
+        </div>
+        <div class="col-lg-6 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name" placeholder="搜素字段包括：名称、描述">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-body">
+    <table class="table table-hover  table-bordered">
+        <thead>
+            <tr class="form-group form-group-sm">
+                <th class="col-sm-1 control-label ">名称</th>
+                <th class="col-sm-3 control-label ">描述</th>
+                <th class="col-sm-2 control-label ">有效时间</th>
+                <th class="col-sm-1 control-label ">使用范围</th>
+                <th class="col-sm-1 control-label ">是否使用</th>
+                <th class="col-sm-1 control-label ">消费时间</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in vouchers">
+            <td>
+                {{item.VoucherDto.Name}}
+            </td>
+            <td>
+                {{item.VoucherDto.Contents}}
+            </td>
+            <td>
+                {{item.VoucherDto.EndEventTime|date:'yyyy-MM-dd hh:mm:ss'}}
+            </td>
+            <td>
+                {{item.VoucherDto.UseScope|enumVals:'VoucherUseScope'}}
+            </td>
+            <td>
+                {{item.State|enumVals:'VoucherState'}}
+            </td>
+
+            <td>
+                {{item.UseEventTime|date:'yyyy-MM-dd hh:mm:ss'}}
+            </td>
+        </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size" class="pagination-sm" previous-text="&lsaquo;"
+                                        next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="close()">关闭窗口</button>
+</div>

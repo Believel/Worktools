@@ -1,0 +1,69 @@
+﻿<div ng-controller="orderBase">
+    <div ng-if="!loadingState" class="form-horizontal col-padding-2">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">
+                订单编号:
+            </label>
+            <div class="col-sm-3 pt6 text-left">
+                {{model.OrderNs}}
+            </div>
+            <label class="col-sm-2 control-label text-info">支付类型:</label>
+            <div class="col-sm-3 pt6">
+                {{model.PaymentDirect|enumVals:'PaymentDirect'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">下单时间:</label>
+            <div class="col-sm-3 pt6">
+                {{model.EventTime|date:'yyyy-MM-dd hh:mm:ss'}}
+            </div>
+            <label class="col-sm-2 control-label text-info">付款时间:</label>
+            <div class="col-sm-3 pt6">
+                {{model.FinnshedTime|date:'yyyy-MM-dd hh:mm:ss'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">支付方式名称:</label>
+            <div class="col-sm-2 pt6">
+                {{model.PaymentName}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">商品总价格:</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" ng-change="needSave()" ng-model="model.Amount" required />
+            </div>
+            <label class="col-sm-2 control-label text-info">折扣价格:</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" ng-change="needSave()" ng-model="model.Discount" required />
+            </div>
+            <label class="col-sm-2 control-label text-info">订单总价:</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" ng-change="needSave()" ng-model="model.OrderAmount" required />
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">订单留言:</label>
+            <div class="col-sm-2 pt6">
+                {{model.OrderMessage}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">订单状态:</label>
+            <div class="btn-group btn-group-xs mg13" role="group">
+                <button ng-repeat="item in orderState" type="button" ng-disabled="item.Val < model.State" ng-click="changeState(item.Val)" class="btn btn-{{model.State==item.Val?'success':'default'}}">
+                    {{item.Name}}
+                </button>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">来自平台:</label>
+            <div class="col-sm-2 pt6">
+                {{model.From|enumVals:'From'}}
+            </div>
+        </div>
+    </div>
+    <div ng-if="loadingState" class="text-center">
+        <img width="60" src="/App/images/loading.gif" />
+    </div>
+</div>

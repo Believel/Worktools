@@ -1,0 +1,47 @@
+﻿<div class="col-lg-8" style="padding-left: 0">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-sm-1">食材名称</th>
+                <th class="col-sm-1">食材别名</th>
+                <th class="col-sm-2">食材类型</th>
+                <th class="col-sm-1">数量</th>
+                <th class="col-sm-2">单价</th>
+                <th class="col-sm-2">总价</th>
+                <th class="col-sm-2"><button ng-click="materialAdd()" class="btn btn-primary btn-xs">添加食材</button></th>
+            </tr>
+        </thead>
+        <tbody ng-if="loadingState">
+            <tr ng-repeat="item in material">
+                <!--烹饪关系集合-->
+                <td>{{item.Name}}</td>
+                <td ng-if="!item.isModified">{{item.Alias}}</td>
+                <td ng-if="item.isModified"><input type="text" class="form-control" ng-model="item.Alias"/></td>
+                <td ng-if="!item.isModified">{{item.Category|enumVals:'CookMaterial'}}</td>
+                <td ng-if="item.isModified">
+                    <select ng-model="item.Category" ng-options="choose.Val as choose.Name for choose in cookMaterial" class="form-control"> </select>
+                </td>
+                <td ng-if="!item.isModified">{{item.Number}}</td>
+                <td ng-if="item.isModified"><input type="number" class="form-control" ng-model="item.Number" /></td>
+                <td>{{item.UnitPrice|currency:'¥'}}/{{item.Unit|enumVals:'Unit'}}</td><!--单价-->
+                <td ng-if="!item.isModified">{{item.Price|currency:'¥'}}</td><!--总计价格-->
+                <td ng-if="item.isModified"><input type="text" class="form-control" value="{{item.UnitPrice*item.Number}}" /></td>
+                <td ng-if="!item.isModified">
+                    <button type="button" ng-click="materialRemove(item)" class="btn btn-danger btn-xs">删除</button>
+                    <button type="button" ng-click="materialEdit(item)" class="btn btn-success btn-xs">编辑</button>
+                </td>
+                <td ng-if="item.isModified">
+                    <button type="button" ng-click="materialCancel(item)" class="btn btn-danger btn-xs">取消</button>
+                    <button type="button" ng-click="materialSave(item)" class="btn btn-success btn-xs">保存</button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="!loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

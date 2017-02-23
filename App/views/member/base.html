@@ -1,0 +1,113 @@
+﻿<div>
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-2 ">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">头像访问Key:</label>
+            <div class="col-sm-2 pt6">
+                {{title}}
+                <img class="h50" ng-src="{{model.ImgAccessKey}}_60x60.jpg" />
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">
+                用户昵称:
+            </label>
+            <div ng-show="model.Gender" class="col-sm-4 pt6 ">{{model.Nickname}}<span style="margin-left:10px" type="button" class="label label-success">男</span></div>
+            <div ng-show="!model.Gender" class="col-sm-4 pt6 ">{{model.Nickname}}<span style="margin-left:10px" type="button" class="label label-success">女</span></div>
+
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">
+                手机:
+            </label>
+            <div ng-show="model.IsPhoneNumber" class="col-sm-4 pt6 ">{{model.PhoneNumber}} <span class="btn-success radius" >已验证</span></div>
+            <div ng-show="!model.IsPhoneNumber" class="col-sm-4 pt6 ">{{model.PhoneNumber}} <span class="badge">未验证</span></div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">
+                邮箱:
+            </label>
+            <div ng-show="model.IsEmail" class="col-sm-4 pt6 ">{{model.Email}} <span class="btn-success radius">已验证</span></div>
+            <div ng-show="!model.IsEmail" class="col-sm-4 pt6 ">{{model.Email}} <span class="badge ">未验证</span></div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">教育程度:</label>
+            <div class="col-sm-2 pt6 ">
+                {{model.Education|enumVals:'Education'}}
+            </div>
+            <label class="col-sm-2 control-label text-info">所属行业:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Industry|enumVals:'Industry'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">收入:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Income|enumVals:'Income'}}
+            </div>
+            <label class="col-sm-2 control-label text-info">职业:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Job|enumVals:'Job'}}
+            </div>
+            <label class="col-sm-2 control-label text-info">证件类型:</label>
+            <div class="col-sm-2 pt6">
+                {{model.IdentificationType|enumVals:'IdentificationType'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">注册方式:</label>
+            <div class="col-sm-2 pt6">
+                {{model.RegType|enumVals:'RegType'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">用户等级:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Privilege.Name}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">用户状态:</label>
+            <div class="btn-group btn-group-xs mg13"   role="group">
+                <button ng-repeat="item in memberStates" type="button" ng-click="changeState(item.Val)" class="btn btn-{{model.State==item.Val?'success':'default'}}">
+                    {{item.Name}}
+                </button>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">来自平台:</label>
+            <div class="col-sm-2 pt6">
+                {{model.From|enumVals:'From'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">证件号:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Identification}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info ">注册时间:</label>
+            <div class="col-sm-4 pt6">
+                {{model.RegDateTime|date:'yyyy-MM-dd hh:mm:ss'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">邀请码:</label>
+            <div class="col-sm-4 pt6">
+                {{model.InvitationCode}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">住址:</label>
+            <div class="col-sm-4 pt6">
+                {{model.Address}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info ">三方登录Id:</label>
+            <div class="col-sm-2 pt6">
+                {{model.OAuthId}}
+            </div>
+        </div>
+    </form>
+</div>

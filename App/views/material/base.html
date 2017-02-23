@@ -1,0 +1,58 @@
+﻿
+<div class="row">
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+        <div class="form-group form-group-sm  has-feedback ">
+            <label class="col-sm-1 control-label">食材名称:</label>
+            <div class="col-sm-3 {{form.name.$valid?'has-success':'has-error'}}">
+                <input type="text" name="name" ng-model="model.Name" required class="form-control" ng-maxlength="256" placeholder="最多256个字符" />
+                <span ng-if="!form.name.$error.required  && !form.name.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.name.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback ">
+            <label class="col-sm-1 control-label ">食材条形码:</label>
+            <div class="col-sm-3 {{form.sn.$valid?'has-success':'has-error'}}">
+                <input type="text" name="sn" ng-model="model.Sn" required class="form-control" ng-maxlength="100" placeholder="最多100个字符" />
+                <span ng-if="!form.sn.$error.required && !form.sn.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.sn.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">价格:</label>
+            <div class="col-sm-2  {{form.price.$valid?'has-success':'has-error'}}">
+                <input type="text" name="price" ng-model="model.Price" required class="form-control" ng-maxlength="1000" placeholder="食材价格">
+                <span ng-if="!form.price.$error.required " class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <label class="col-sm-1 control-label  has-feedback ">市场价格:</label>
+            <div class="col-sm-2 {{form.price.$valid?'has-success':'has-error'}}">
+                <input type="text" name="marketprice" ng-model="model.MaketPrice" ng-maxlength="1000" required class="form-control" placeholder="市场价">
+                <span ng-if="!form.marketprice.$error.required  && !form.marketprice.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.marketprice.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+            <label class="col-sm-1 control-label">计量单位:</label>
+            <div class="col-sm-1">
+                <select class="form-control" ng-model="model.Unit" required ng-options="choose.Val as choose.Name for choose in units"></select>
+            </div>
+        </div>
+        <div ng-if="model.ImgAccessKey" class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">展示图片:</label>
+            <div class="col-sm-2">
+                <img class="img-thumbnail" ng-src="{{imgFormat(model.ImgAccessKey)}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label">上传图片:</label>
+            <div class="col-sm-3">
+                <input k-upload="/api/files/upload/Material" ng-model="model.ImgAccessKey" type="button" value="上传食材展示图 " />
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-1">
+                <button type="submit" class="btn btn-success">保存信息</button>
+            </div>
+            <div class="col-sm-offset-1 col-sm-1">
+                <a href class="btn btn-info" back-button>返回列表</a>
+            </div>
+        </div>
+    </form>
+</div>

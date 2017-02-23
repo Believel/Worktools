@@ -1,0 +1,67 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        <ol class="breadcrumb">
+            <li><a href="#/privilege/list">会员等级</a></li>
+            <li class="active">用户特权特性</li>
+        </ol>
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">图标代码</option>
+                <option value="2">特权功能</option>
+                <option value="3">特权代码</option>
+            </select>
+        </div>
+        <div class="col-lg-4 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-xs-1">图标</th>
+                <th class="col-xs-1 ">特权功能</th>
+                <th class="col-xs-1">特权代码</th>
+                <th class="col-xs-1"><a href="#/privilege/{{privilegeId}}/features" class="btn btn-primary btn-xs">添加特权</a></th>
+            </tr>
+        </thead>
+        <tbody ng-if="!loadingState">
+            <tr ng-repeat="item in list">
+                <td><img ng-src="{{item.IcoUrl}}_35x35.png" /></td>
+                <td>{{item.Name}}</td>
+                <td>{{item.Code}}</td>
+                <td>
+                    <button type="button" ng-click="remove(item)" class="btn btn-danger btn-xs">删除</button>
+                    <a href="#/privilege/features/{{item.Id}}" class="btn btn-success btn-xs">编辑</a>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

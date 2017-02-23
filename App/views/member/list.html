@@ -1,0 +1,76 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        会员管理
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control" ng-change="search(false)">
+                <option value="">所有相关</option>
+                <option value="1">用户昵称</option>
+                <option value="2">邮箱</option>
+                <option value="3">手机号</option>
+                <option value="4">正常</option>
+                <option value="5">已禁止</option>
+            </select>
+        </div>
+        <div class="col-lg-4 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name" placeholder="搜索关键词：用户昵称、邮箱、手机号">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-xs-1 ">用户昵称</th>
+                <th class="col-xs-1">邮箱</th>
+                <th class="col-xs-1">手机号</th>
+                <th class="col-xs-1">会员等级</th>
+                <th class="col-xs-1">会员状态</th>
+            </tr>
+        </thead>
+        <tbody ng-if="!loadingState">
+            <tr ng-repeat="item in list" ng-click="lookUp(item)" class="pointer">
+                <td><a href="javascript:;">{{item.Nickname}}</a></td>
+                <td>{{item.Email==""?"无":item.Email}}</td>
+                <td>{{item.PhoneNumber==""?"无":item.PhoneNumber}}</td>
+                <td>{{item.Level|enumVals:'VipState'}}</td> <!--会员等级-->
+                <td>{{item.State|enumVals:'MemberState'}}</td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info">
+                            <span class="ng-binding">共有{{total}}条</span>
+                            <div class="pagination-info">
+                                <select ng-model="pageTotal" class="form-control" ng-change="search(true)">
+                                    <option value="5">5条/页</option>
+                                    <option value="">10条/页</option>
+                                    <option value="20">20条/页</option>
+                                    <option value="30">30条/页</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pagination-info form-group-sm">跳至<input type="text" class="input-group-sm" ng-model="current" ng-change="search(true)" />页</div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="pageTotal||10"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

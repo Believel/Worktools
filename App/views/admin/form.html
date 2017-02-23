@@ -1,0 +1,17 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        {{Title}}
+    </h4>
+</div>
+<div class="row">
+    <div>
+        <uib-tabset>
+            <uib-tab heading="基本信息">
+                <div ng-include="'/admin-base'"></div>
+            </uib-tab>
+            <uib-tab heading="关联角色" disable="!model.Id" ng-click="checkRoles()">
+                <div ng-include="'/admin-link'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

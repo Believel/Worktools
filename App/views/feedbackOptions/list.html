@@ -1,0 +1,61 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        系统设置用户快速反馈管理
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">标题</option>
+                <option value="2">回复内容</option>
+            </select>
+        </div>
+        <div class="col-lg-3 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-sm-1">标题</th>
+                <th class="col-sm-2">回复内容</th>
+                <th class="col-sm-1"><button ng-click="modal()" class="btn btn-primary btn-xs">添加组</button></th>
+            </tr>
+        </thead>
+        <tbody ng-if="!loadingState">
+            <tr ng-repeat="item in list">
+                <td>{{item.Title}}</td>
+                <td>{{item.Description}}</td>
+                <td ng-if="!model.isModified">
+                    <button type="button" ng-click="remove(item)" class="btn btn-danger btn-xs">删除</button>
+                    <button type="button" ng-click="modal(item)" class="btn btn-success btn-xs">编辑</button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

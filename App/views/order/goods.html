@@ -1,0 +1,26 @@
+﻿<div ng-controller="orderGoods">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="form-group ">
+                <th class="col-sm-2 ">商品名称</th>
+                <th class="col-sm-2 ">数量</th>
+                <th class="col-sm-2 ">价格</th>
+            </tr>
+        </thead>
+        <tbody ng-if="!loadingState">
+            <tr ng-repeat="item in list" class="pointer" ng-click="lookupMaterials(item)">
+                <td>{{item.CookTitle}}</td>
+                <td>{{item.Number}}</td>
+                <td>{{item.Price|currency:'￥'}}</td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="12" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

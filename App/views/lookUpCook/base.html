@@ -1,0 +1,88 @@
+﻿<div ng-controller="lookUpCookBase">
+    <form ng-if="!loadingState" name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">显示标题:</label>
+            <div class="col-sm-3 pt6">
+                {{model.Title}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info ">视频简介:</label>
+            <div class="col-sm-4 pt6">
+                {{model.Subject}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">菜单详细描述:</label>
+            <div class="col-sm-10 pt6">
+                <a href="javascript:;" ng-click="descriptionDetail(model.Contents)">点击查看详情</a>
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">SEO搜索关键词:</label>
+            <div class="col-sm-10 pt6 ">
+                {{model.Keywords}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">视频Accesskey:</label>
+            <div class="col-sm-10 pt6">
+                {{model.VideoAccessKey}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">注意事项:</label>
+            <div class="col-sm-4 pt6">
+                {{model.Attentions}}
+
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">小贴士:</label>
+            <div class="col-sm-4 pt6">
+                {{model.Note}}
+
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">选购方法:</label>
+            <div class="col-sm-10 pt6">
+                {{model.Purchase}}
+
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">条形码:</label>
+            <div class="col-sm-10 pt6">
+                {{model.Sn}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">难易程度:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Difficulty|enumVals:'Difficulties'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">辣度:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Peppery|enumVals:'Peppery'}}
+            </div>
+        </div>
+        <div ng-if="model.ImgAccessKey" class="form-group ">
+            <label class="col-sm-2 control-label text-info">展示图片:</label>
+            <div class="col-sm-4 ">
+                <a a href="javascript:;" ng-click="viewCookPicture(model)"><img class="img-thumbnail" ng-src="{{model.ImgAccessKey}}_320x180.jpg"></a>
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">访问等级:</label>
+            <div class="col-sm-2 pt6">
+                {{model.VideoLevel|enumVals:'VideoLevel'}}
+            </div>
+        </div>
+    </form>
+    <div ng-if="loadingState" class="text-center">
+        <img width="60" src="/App/images/loading.gif" />
+    </div>
+</div>

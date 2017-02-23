@@ -1,0 +1,58 @@
+﻿<div class="row">
+    <h4 ng-if="isCreate" class="page-header text-info">
+        新增点播券
+    </h4>
+    <h4 ng-if="!isCreate" class="page-header text-info">
+        编辑点播券
+    </h4>
+</div>
+<div class="row">
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+        <div class="form-group form-group-sm  has-feedback ">
+            <label class="col-sm-1 control-label">名称:{{form.name.$error.maxlength}}</label>
+            <div class="col-sm-3 {{form.name.$valid?'has-success':'has-error'}}">
+                <input type="text" name="name" ng-model="model.Name" required class="form-control" ng-maxlength="100" placeholder="最多100个字符" />
+                <span ng-if="!form.name.$error.required  && !form.name.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.name.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">描述:</label>
+            <div class="col-sm-4 {{form.description.$valid?'has-success':'has-error'}}">
+                <textarea name="description" ng-model="model.Contents" ng-maxlength="500" placeholder="最多500个字符" required class="form-control "></textarea>
+                <span ng-if="!form.description.$error.required && !form.description.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.description.$error.maxlength " class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">数量:</label>
+            <div class="col-sm-2 {{form.total.$valid?'has-success':'has-error'}}">
+                <input name="total" type="text" ng-model="model.Total" required class="form-control "  placeholder="发放数量">
+                <span ng-if="!form.total.$error.required && !form.total.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.total.$error.maxlength " class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">使用范围:</label>
+            <div class="col-sm-2">
+                <select  ng-model="model.UseScope" ng-options="choose.Val as choose.Name for choose in useScope" class="form-control"> </select>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">优惠计算公式:</label>
+            <div class="col-sm-4 {{form.expression.$valid?'has-success':'has-error'}}">
+                <input name="expression" type="text" ng-model="model.Expression" ng-maxlength="100" placeholder="最多100个字符" required class="form-control ">
+                <span ng-if="!form.expression.$error.required && !form.expression.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.expression.$error.maxlength " class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-1">
+                <button type="submit" class="btn btn-success">保存信息</button>
+            </div>
+            <div class="col-sm-offset-1 col-sm-1">
+                <a href class="btn btn-info" back-button>返回列表</a>
+            </div>
+        </div>
+    </form>
+</div>

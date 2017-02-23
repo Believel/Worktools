@@ -1,0 +1,105 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        做菜管理
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="Type" class="form-control" ng-change="search(false)">
+                <option value="">所有相关</option>
+                <option value="1">菜名</option>
+                <option value="2">标签</option>
+                <option value="3">上架</option>
+                <option value="4">下架</option>
+            </select>
+        </div>
+        <div class="col-lg-4 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name" placeholder="搜索关键词：视频名称、与视频关联的标签名">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>视频Id</th>
+            <th>菜名</th>
+            <th class="col-sm-1">时长</th>
+            <th class="col-sm-2">发布时间</th>
+            <th class="col-sm-1">访问等级</th>
+            <th class="col-sm-3">统计</th>
+            <th class="col-sm-1">状态</th>
+            <th class="col-sm-2"><a href="#/cook/form/" class="btn btn-primary btn-xs">添加做菜</a></th>
+        </tr>
+        </thead>
+        <tbody ng-if="!loadingState">
+        <tr ng-repeat="item in list ">
+            <td>
+                {{item.Id}}
+            </td>
+            <td>
+                {{item.Title}}
+            </td>
+            <td>{{item.Duration|timeConver:'HH:mm:ss'}} </td>
+            <td>{{item.Dateline|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+            <td>{{item.VideoLevel|enumVals:'VideoLevels'}}</td>
+            <td>
+                <a class="btn btn-xs btn-info">
+                    浏览<span class="badge">{{item.PageView}}次</span>
+                </a>
+                <a class="btn btn-xs btn-info">
+                    收藏<span class="badge">{{item.Collection}}次</span>
+                </a>
+                <a class="btn btn-xs btn-info">
+                    点赞<span class="badge">{{item.Vote}}次</span>
+                </a>
+                <a class="btn btn-xs btn-info">
+                    分享<span class="badge">{{item.Share}}次</span>
+                </a>
+            </td>
+            <td>
+                <div class="btn-group btn-group-xs mg13" role="group">
+                    <button ng-repeat="i in videoState" type="button" ng-click="changeState(item,i.Val)" class="btn btn-{{item.State==i.Val?'success':'default'}}">
+                        {{i.Name}}
+                    </button>
+                </div>
+            </td>
+            <td>
+                <a href="#/cook/form/{{item.Id}}/current/{{current}}" class="btn btn-success btn-xs">编辑</a>
+                <button type="button" ng-click="lookUp(item)" class="btn btn-success btn-xs">查看</button>
+            </td>
+        </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <span class="pagination-info">共有{{total}}条</span>
+                        <div class="pagination-info">
+                            <select ng-model="pageTotal" class="form-control" ng-change="search(true)">
+                                <option value="5">5条/页</option>
+                                <option value="">10条/页</option>
+                                <option value="20">20条/页</option>
+                                <option value="30">30条/页</option>
+                            </select>
+                        </div>
+                        <div class="pagination-info form-group-sm">跳至<input type="text" class="input-group-sm"  ng-model="current" ng-change="search(true)"/>页</div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="pageTotal||10"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

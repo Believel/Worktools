@@ -1,0 +1,26 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        做菜信息
+    </h4>
+</div>
+<div class="row">
+    <div>
+        <uib-tabset>
+            <uib-tab heading="基本信息" disable="model.isAdd">
+                <div ng-include="'/cook-base'"></div>
+            </uib-tab>
+            <uib-tab heading="商品信息" disable="model.isAdd">
+                <div ng-include="'/cook-goods'"></div>
+            </uib-tab>
+            <uib-tab heading="标签信息" disable="model.isAdd">
+                <div ng-include="'/cook-tags'"></div>
+            </uib-tab>
+            <uib-tab heading="事件信息" disable="model.isAdd">
+                <div ng-include="'/cook-event'"></div>
+            </uib-tab>
+            <uib-tab heading="食材信息" disable="model.isAdd">
+                <div ng-include="'/cook-material'"></div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

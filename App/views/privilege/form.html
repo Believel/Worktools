@@ -1,0 +1,50 @@
+﻿<div class="row">
+    <h4 ng-if="isCreate" class="page-header text-info">
+        新增等级
+    </h4>
+    <h4 ng-if="!isCreate" class="page-header text-info">
+        编辑等级
+    </h4>
+</div>
+<div class="row">
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+        <div class="form-group form-group-sm  has-feedback ">
+            <label class="col-sm-1 control-label">名称:{{form.name.$error.maxlength}}</label>
+            <div class="col-sm-3 {{form.name.$valid?'has-success':'has-error'}}">
+                <input type="text" name="name" ng-model="model.Name" required class="form-control" ng-maxlength="50" placeholder="最多50个字符"/>
+                <span ng-if="!form.name.$error.required  && !form.name.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.name.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">图标IcoUrl(只写等级图标名称和后缀，后缀须为.png格式):</label>
+            <div class="col-sm-4 {{form.IcoAccessKey.$valid?'has-success':'has-error'}}">
+                <input name="IcoAccessKey" type="text" ng-model="model.IcoUrl" ng-maxlength="256" placeholder="最多256个字符,格式：*.png,以.png结尾" required class="form-control ">
+                <span ng-if="!form.IcoAccessKey.$error.required && !form.IcoAccessKey.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.IcoAccessKey.$error.maxlength " class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-1 control-label">是否付费:</label>
+            <div class="col-sm-2">
+                <label class="radio-inline">
+                    <input type="radio" name="IsFree" ng-value="true" ng-model="model.IsFree">是
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="IsFree" ng-value="false" ng-model="model.IsFree">否
+                </label>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">描述:</label>
+            <div class="col-sm-4 {{form.description.$valid?'has-success':'has-error'}}">
+                <textarea name="description" ng-model="model.Description" ng-maxlength="2000" placeholder="最多2000个字符" required class="form-control "></textarea>
+                <span ng-if="!form.description.$error.required && !form.description.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span ng-if="form.description.$error.maxlength " class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-lg-offset-2"><button type="submit" class="btn btn-success">保存信息</button></div>
+        </div>
+    </form>
+</div>

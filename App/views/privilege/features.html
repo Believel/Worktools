@@ -1,0 +1,54 @@
+﻿<div class="row">
+    <h4 ng-if="isCreate" class="page-header text-info">
+        <ol class="breadcrumb">
+            <li><a href="#/privilege/list">会员等级</a></li>
+            <li><a href="#/privilege/listFeatures/{{model.PrivilegeId}}">用户特权特性</a></li>
+            <li class="active">新增用户特权特性</li>
+        </ol>
+    </h4>
+    <h4 ng-if="!isCreate" class="page-header text-info">
+        <ol class="breadcrumb">
+            <li><a href="#/privilege/list">会员等级</a></li>
+            <li><a href="#/privilege/listFeatures/{{model.PrivilegeId}}">用户特权特性</a></li>
+            <li class="active">编辑用户特权特性</li>
+        </ol>
+    </h4>
+</div>
+<div class="row">
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+        <div ng-if="model.ImgSrc" class="form-group ">
+            <!--新增界面上传图标代码显示这个-->
+            <label class="col-sm-1 control-label">展示图标:</label>
+            <div class="col-sm-4">
+                <img class="img-thumbnail" ng-src="{{model.ImgSrc}}">
+            </div>
+        </div>
+            <div class="form-group ">
+                <label class="col-sm-1 control-label">上传图标:</label>
+                <div class="col-sm-3">
+                    <input m-upload="/api/upload/feature" ng-model="model.IcoUrl" ng-change="call()" name="file" type="file">
+                </div>
+            </div>
+            <div class="form-group form-group-sm  has-feedback ">
+                <label class="col-sm-1 control-label">特权功能:</label>
+                <div class="col-sm-3 {{form.name.$valid?'has-success':'has-error'}}">
+                    <input type="text" name="name" ng-model="model.Name" required class="form-control" ng-maxlength="50" placeholder="最多50个字符" />
+                    <span ng-if="!form.name.$error.required  && !form.name.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    <span ng-if="form.name.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-sm has-feedback ">
+                <label class="col-sm-1 control-label ">特权代码:</label>
+                <div class="col-sm-3 {{form.description.$valid?'has-success':'has-error'}}">
+                    <input type="text" name="description" ng-model="model.Code" required class="form-control" ng-maxlength="500" placeholder="最多500个字符" />
+                    <span ng-if="!form.description.$error.required && !form.description.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    <span ng-if="form.description.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="col-lg-offset-2">
+                    <button type="submit" class="btn btn-success">保存信息</button>
+                </div>
+            </div>
+</form>
+</div>

@@ -1,0 +1,26 @@
+﻿<div ng-controller="lookUpCookTag">
+    <div >
+        <h4 class="page-header text-info">标签详细信息：</h4>
+    </div>
+    <table class="table table-hover table-striped table-bordered p0m0">
+        <thead>
+            <tr class="form-group ">
+                <th class="col-sm-1 control-label ">标签组名称</th>
+                <th class="col-sm-3 control-label ">标签</th>
+            </tr>
+        </thead>
+        <tbody ng-show="!loadingState">
+            <tr ng-repeat="item in list ">
+                <td>{{item.Name}}</td>
+                <td><span ng-repeat="itm in item.Tags|filter:{IsChoose:true} "><span>{{itm.Name}} 、</span></span></td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="12" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

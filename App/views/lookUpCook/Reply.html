@@ -1,0 +1,61 @@
+﻿<div>
+    <div class="page-header text-info">
+        <h4>视频评论回复信息：</h4>
+    </div>
+    <div >
+        <form class="form-horizontal">
+            <div class="col-sm-2 clear-padding">
+                <select ng-model="type" class="form-control">
+                    <option value="">所有相关</option>
+                    <option value="1">内容</option>
+                    <option value="2">昵称</option>
+                </select>
+            </div>
+            <div class="col-lg-4 clear-padding">
+                <div ce-enter="search" class="input-group">
+                    <input type="text" class="form-control" ng-model="Name">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div><br /><br />
+    <table class="table table-hover table-bordered p0m0">
+        <thead>
+        <tr class="form-group ">
+            <th class="col-sm-1 control-label ">用户昵称</th>
+            <th class="col-sm-1 control-label ">回复内容</th>
+            <th class="col-sm-1 control-label ">回复时间</th>
+        </tr>
+        </thead>
+        <tbody ng-show="!loadingState">
+        <tr ng-repeat="item in list">
+            <td><a href="javascript:;" ng-click="lookUpMember(item.MemberId)">{{item.Nickname}}</a></td>
+            <td><a href="javascript:;" ng-click="replyDetail(item.Id)">{{item.Contents|limitTo:6}}...</a></td>
+            <td>{{item.EventTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+        </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+        <tr>
+            <td colspan="12" class="text-center">
+                <img width="60" src="/App/images/loading.gif"/>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+        <tr>
+            <td colspan="8">
+                <div class="pull-right">
+                    <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                    <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                    class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <div class="modal-footer">
+        <button class="btn btn-danger" ng-click="close()">关闭窗口</button>
+    </div>
+</div>

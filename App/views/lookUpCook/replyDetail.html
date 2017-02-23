@@ -1,0 +1,30 @@
+﻿<div class="modal-header">
+    <h2 class="modal-title page-header">回复详细内容</h2><br />
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-2 ">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">回复内容:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Contents}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">是否屏蔽:</label>
+            <div class="col-sm-2">
+                <label class="radio-inline">
+                    <input type="radio" name="IsDelete" ng-value="true" ng-model="model.IsDelete">是
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="IsDelete" ng-value="false" ng-model="model.IsDelete">否
+                </label>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <div class="col-lg-offset-2">
+                <button type="submit" class="btn btn-success">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="close()">关闭窗口</button>
+</div>

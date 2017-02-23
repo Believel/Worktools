@@ -1,0 +1,74 @@
+﻿<div class="row">
+    <div class="page-header" style="padding-left: 20px">
+        <h4>订单管理：</h4>
+    </div>
+    <div>
+        <form class="form-horizontal">
+            <div class="col-lg-1 clear-padding">
+                <select ng-model="type" class="form-control">
+                    <option value="">所有相关</option>
+                    <option value="1">订单编号搜索</option>
+                    <option value="2">订单留言搜索</option>
+                </select>
+            </div>
+            <div class="col-lg-4 clear-padding">
+                <div ce-enter="search" class="input-group">
+                    <input type="text" class="form-control" ng-model="Name" placeholder="搜素字段包括：订单编号、订单留言">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div><br /><br />
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="form-group ">
+                <th class="col-sm-1 control-label ">订单编号</th>
+                <th class="col-sm-1 control-label ">下单时间</th>
+                <th class="col-sm-1 control-label ">支付方式名称</th>
+                <th class="col-sm-1 control-label ">支付类型</th>
+                <th class="col-sm-1 control-label ">付款时间</th>
+                <th class="col-sm-1 control-label ">商品总价格</th>
+                <th class="col-sm-1 control-label ">折扣价格</th>
+                <th class="col-sm-1 control-label ">订单总价</th>
+                <th class="col-sm-1 control-label ">订单留言</th>
+                <th class="col-sm-1 control-label ">订单状态</th>
+                <th class="col-sm-1 control-label ">来自平台</th>
+            </tr>
+        </thead>
+        <tbody ng-show="!loadingState">
+            <tr ng-repeat="item in list" ng-click="lookUp(item)" class="pointer">
+                <td>{{item.OrderNs}}</td>
+                <td>{{item.EventTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>{{item.PaymentName}}</td>
+                <td>{{item.PaymentDirect|enumVals:'PaymentDirect'}}</td>
+                <td>{{item.FinnshedTime|date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>{{item.Amount}}</td>
+                <td>{{item.Discount}}</td>
+                <td>{{item.OrderAmount}}</td>
+                <td>{{item.OrderMessage|limitTo:3}}...</td>
+                <td>{{item.State|enumVals:'OrderState'}}</td>
+                <td>{{item.From|enumVals:'From'}}</td>
+            </tr>
+        </tbody>
+        <tbody ng-show="loadingState">
+            <tr>
+                <td colspan="12" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="12">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span>共有{{total}}条</span>， <span>每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                    class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

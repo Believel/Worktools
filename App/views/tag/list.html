@@ -1,0 +1,84 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        标签管理
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">分组名称</option>
+                <option value="2">标签名称</option>
+            </select>
+        </div>
+        <div class="col-lg-3 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name" placeholder="搜索关键词：分组名称、标签集合中标签名">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-sm-1">标识</th>
+                <th class="col-sm-1">分组名称</th>
+                <th class="col-sm-4">标签集合</th>
+                <th class="col-sm-1">使用范围</th>
+                <th class="col-sm-1">属性</th>
+                <th class="col-sm-1"><button ng-click="create()" class="btn btn-primary btn-xs">添加分组</button></th>
+            </tr>
+        </thead>
+        <tbody ng-if="!loadingState">
+            <tr ng-repeat="item in list">
+                <td>{{item.Id}}</td>
+                <td ng-if="!item.isModified">{{item.Name}}</td>
+                <td ng-if="item.isModified"><input type="text" class="form-control" ng-model="item.Name" /></td>
+                <td>
+                    <a href="javascript:;" ng-click="viewTags(item)">
+                        {{item.Tags|merge:'Name':10:'...'|none:'未添加标签'}}<span class="text-success">({{item.Tags.length}})</span>
+                    </a>
+                </td>
+                <td ng-if="!item.isModified">{{item.UseType|enumVals:'TagGroupUserType'}}</td>
+                <td ng-if="item.isModified"><select class="form-control" ng-model="item.UseType" required ng-options="choose.Val as choose.Name for choose in tagUseType"></select></td>
+                <td ng-if="!item.isModified">
+                    <button class="btn btn-xs {{item.IsFilter?'btn-success':'btn-default'}}" >筛选</button>
+                </td>
+                <td ng-if="item.isModified">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="item.IsFilter">筛选
+                    </label>
+                </td>
+                <td ng-if="!item.isModified">
+                    <button type="button" ng-click="remove(item)" class="btn btn-danger btn-xs">删除</button>
+                    <button type="button" ng-click="edit(item)" class="btn btn-success btn-xs">编辑</button>
+                </td>
+                <td ng-if="item.isModified">
+                    <button type="button" ng-click="cancel(item)" class="btn btn-danger btn-xs">取消</button>
+                    <button type="button" ng-click="save(item)" class="btn btn-success btn-xs">保存</button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

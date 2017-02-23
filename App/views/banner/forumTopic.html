@@ -1,0 +1,105 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">供选择社区版块</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="col-sm-2 clear-padding">
+                <select ng-model="type" class="form-control">
+                    <option value="">所有相关</option>
+                    <option value="1">主题</option>
+                    <option value="2">简介</option>
+                    <option value="3">排序</option>
+                </select>
+            </div>
+            <div class="col-lg-4 clear-padding">
+                <div ce-enter="search" class="input-group">
+                    <input type="text" class="form-control" ng-model="Name" placeholder="搜索关键词包括：主题、简介、排序数字">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th class="col-sm-2">选择</th>
+                <th class="col-sm-2">主题</th>
+                <th class="col-sm-1">封面</th>
+                <th class="col-sm-2">简介</th>
+                <th class="col-sm-2">统计</th>
+                <th class="col-sm-2">排序</th>
+                <th class="col-sm-2">操作</th>
+            </tr>
+            </thead>
+            <tbody ng-show="!loadingState">
+            <tr ng-click="checked(item)" ng-repeat="item in list" class="pointer">
+                <td><input type="radio" ng-checked="item.isChecked" name="forumTopic" /></td>
+                <td>
+                    {{item.Title}}
+                </td>
+                <td><img ng-src="{{item.ImgAccessKey}}_160x90.jpg"/></td>
+                <td>{{item.Brief}}</td>
+                <td>
+                    <a href="#" class="btn btn-info btn-xs">浏览<span class="badge">{{item.Views}}次</span></a>
+                    <a href="#" class="btn btn-info btn-xs">帖子<span class="badge">{{item.Forums}}个</span></a>
+                </td>
+                <td ng-if="!item.isModified">{{item.Sort}}</td>
+                <td ng-if="item.isModified"><input type="number" class="form-control" ng-model="item.Sort"/></td>
+                <td ng-if="!item.isModified">
+                    <button type="button" class="btn btn-success btn-xs">选择</button>
+                </td>
+            </tr>
+            </tbody>
+            <tbody ng-show="loadingState">
+                <tr>
+                    <td colspan="8" class="text-center">
+                        <img width="60" src="/App/images/loading.gif" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-show="!loadingState">
+                <tr>
+                    <td colspan="8">
+                        <div class="pull-right">
+                            <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                            <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                            class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+    <button class="btn btn-warning" ng-click="cancel()">取消</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

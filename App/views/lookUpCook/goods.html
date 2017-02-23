@@ -1,0 +1,39 @@
+﻿<div ng-controller="lookUpCookGoods">
+    <form ng-if="!loadingState" name="form" ng-submit="goodsSave(form.$valid)" class="form-horizontal col-padding-top">
+        <div class="page-header" style="padding-left: 20px">
+            <h4>商品信息：</h4>
+        </div>
+        <div class="form-group form-group-sm has-feedback ">
+            <label class="col-sm-2 control-label text-info">商品名称:</label>
+            <div class="col-sm-3 pt6">
+                {{goods.Name}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">市场价:</label>
+            <div class="col-sm-2 pt6">
+                {{goods.MarkPrice|currency:'¥'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">价格:</label>
+            <div class="col-sm-2 pt6">
+                {{goods.Price|currency:'¥'}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label text-info">状态:</label>
+            <div class="col-sm-2 pt6">
+                <label class="radio-inline">
+                    <input type="radio" name="IsUnder" ng-value="true" ng-model="goods.IsUnder" disabled="disabled">上架
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="IsUnder" ng-value="false" ng-model="goods.IsUnder" disabled="disabled">下架
+                </label>
+            </div>
+        </div>
+    </form>
+    <div ng-if="loadingState" class="text-center">
+        <img width="60" src="/App/images/loading.gif" />
+    </div>
+</div>

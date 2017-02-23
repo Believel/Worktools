@@ -1,0 +1,42 @@
+﻿<div ng-controller="orderAddress">
+    <div ng-if="!loadingState" class="form-horizontal col-padding-2 ">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">真实姓名:</label>
+            <div class="col-sm-2 pt6">
+                {{model.Realname}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">区域地址:</label>
+            <div class="col-sm-10 form-inline">
+                <div m-categroy="/api/address/"  ng-change="showSaveAddress()" ng-model="model.DistrictPath"></div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">详细地址:</label>
+            <div class="col-sm-6 pt6">
+                <div>
+                    <input type="text" class="form-control" ng-change="showSaveAddress()" ng-model="model.Address" placeholder="请填写详细地址！" required />
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">邮政编号:</label>
+            <div class="col-sm-2 pt6">
+                {{model.ZipCode}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">联系电话:</label>
+            <div class="col-sm-2 pt6">
+                {{model.TelPhone}}
+            </div>
+        </div>
+    </div>
+    <div ng-if="loadingState">
+        <div colspan="12" class="text-center">
+            <img width="60" src="/App/images/loading.gif" />
+        </div>
+    </div>
+</div>
+

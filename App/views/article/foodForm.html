@@ -1,0 +1,75 @@
+﻿<div class="row">
+    <h4 ng-if="isCreate" class="page-header text-info">
+        新增美食专题信息
+    </h4>
+    <h4 ng-if="!isCreate" class="page-header text-info">
+        编辑美食专题信息
+    </h4>
+</div>
+<div class="row">
+    <div>
+        <uib-tabset>
+            <uib-tab heading="美食专题信息">
+                <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">文章标题:</label>
+                        <div class="col-sm-4">
+                            <input type="text" ng-model="model.Title" ng-maxlength="100" required class="form-control" placeholder="最多100个字符">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">简述:</label>
+                        <div class="col-sm-4">
+                            <textarea ng-model="model.Summary" required class="form-control" placeholder="最多256个字符" ng-maxlength="256"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">调用Key:</label>
+                        <div class="col-sm-2">
+                            <input type="text" ng-model="model.CallKey" ng-maxlength="100" required class="form-control" placeholder="最多100个字符">
+                        </div>
+                        <label class="col-sm-1 control-label">排序:</label>
+                        <div class="col-sm-1">
+                            <input type="number" ng-model="model.Sort" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">URL地址:</label>
+                        <div class="col-sm-4">
+                            <input type="text" ng-model="model.Url" ng-maxlength="256" required class="form-control" placeholder="最多256个字符">
+                        </div>
+                    </div>
+                    <div ng-if="model.ImgAccessKey" class="form-group ">
+                        <!--新增界面不显示展示图-->
+                        <label class="col-sm-1 control-label">展示专题图:</label>
+                        <div class="col-sm-4">
+                            <img class="img-thumbnail" ng-src="{{imgFormat(model.ImgAccessKey)}}">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm ">
+                        <label class="col-sm-1 control-label">上传专题图:</label>
+                        <div class="col-sm-4">
+                            <input k-upload="/api/files/upload/Thematic" ng-model="model.ImgAccessKey" type="button" value="上传美食专题展示图 " />
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">专题内容:</label>
+                        <div class="col-sm-8">
+                            <div keditor ng-model="model.Contents" style="width: 100%; height: 400px;" data-config="config"></div>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-offset-1 col-sm-1">
+                            <button type="submit" class="btn btn-success">保存信息</button>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-1">
+                            <a href class="btn btn-info" back-button>返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>
+
+

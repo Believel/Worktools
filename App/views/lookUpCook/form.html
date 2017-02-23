@@ -1,0 +1,37 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">视频信息</h3> 
+</div>
+<div class="modal-body" style="padding:0 2px">
+            <uib-tabset>
+                <uib-tab heading="基本信息" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-base'"></div>
+                </uib-tab>
+                <uib-tab heading="标签信息" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-tag'"></div>
+                </uib-tab>
+                <uib-tab heading="商品信息" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-goods'"></div>
+                </uib-tab>
+                <uib-tab heading="关联食材" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-materials'"></div>
+                </uib-tab>
+                <uib-tab heading="收藏信息" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-collections'"></div>
+                </uib-tab>
+                <uib-tab heading="点赞信息" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-vote'"></div>
+                </uib-tab>
+                <uib-tab heading="分享信息" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-share'"></div>
+                </uib-tab>
+                <uib-tab heading="评论信息" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-comment'"></div>
+                </uib-tab>
+                <uib-tab heading="晒单图集" disable="model.isAdd">
+                    <div ng-include="'/lookUpCook-commentGallery'"></div> 
+                </uib-tab>
+            </uib-tabset>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="close()">关闭窗口</button>
+</div>

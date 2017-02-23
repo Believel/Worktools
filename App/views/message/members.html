@@ -1,0 +1,64 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">供选择的用户</h3>
+
+</div>
+<div class="modal-body">
+    <form class="form-horizontal">
+        <div class="col-lg-6 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name" placeholder="搜索关键词：用户名、手机号">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+    <br/><br/>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>选择</th>
+                <th>用户名</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody ng-show="!loadingState">
+        <tr ng-repeat="item in list" ng-click="checked(item)" class="pointer ng-scope">
+            <td><input type="checkbox" ng-checked="item.isChecked"></td>
+            <td><a ng-click="lookup(item)" href="javascript:;">{{item.Nickname}}</a></td>
+            <td><button class="btn btn-success btn-xs">选择</button></td>
+        </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">确定</button>
+    <button class="btn btn-warning" ng-click="cancel()">取消</button>
+</div>
+
+
+
+
+
+
+
+

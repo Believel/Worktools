@@ -1,0 +1,71 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        文章分类
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-sm-1 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">名称</option>
+            </select>
+        </div>
+        <div class="col-sm-3 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button> 
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-sm-5" style="padding-left: 0">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-sm-2">分类名称</th>
+                    <th class="col-sm-1"><button  ng-click="create(parentId)" class="btn btn-primary btn-xs">添加分类</button></th>
+                </tr>
+            </thead>
+            <tbody ng-if="!loadingState">
+                <tr ng-repeat="item in list">
+                    <td ng-if="!item.isModified">
+                        {{item.Name}}
+                        <a href="#/article/category/{{item.ParentId}}/id/{{item.Id}}"  class="btn-sm btn-info">
+                            子类<span class="badge">{{item.ChildCount}}</span>
+                        </a>
+                    </td>
+                    <td ng-if="item.isModified"><input type="text" class="form-control" ng-model="item.Name" placeholder="请填写分类名称" /></td>
+
+                    <td ng-if="!item.isModified">
+                        <button type="button" ng-click="remove(item)" class="btn btn-danger btn-xs">删除</button>
+                        <button type="button" ng-click="edit(item)" class="btn btn-success btn-xs">编辑</button>
+                    </td>
+                    <td ng-if="item.isModified">
+                        <button type="button" ng-click="cancel(item)" class="btn btn-danger btn-xs">取消</button>
+                        <button type="button" ng-click="save(item)" class="btn btn-success btn-xs">保存</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody ng-if="loadingState">
+                <tr>
+                    <td colspan="8" class="text-center">
+                        <img width="60" src="/App/images/loading.gif" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-show="!loadingState">
+                <tr>
+                    <td colspan="8">
+                        <div class="pull-right">
+                            <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                            <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="10"
+                                            class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

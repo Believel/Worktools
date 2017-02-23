@@ -1,0 +1,33 @@
+﻿<div ng-controller="memberWealth">
+    <div class="page-header text-info">
+        <h4>货币信息：</h4>
+    </div>
+    <form name="form" class="form-horizontal col-padding-2 ">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">辣椒币:</label>
+            <label class="col-sm-4 pt6">
+                {{model.IdealMoney}}
+            </label>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">积分:</label>
+            <label class="col-sm-4 pt6">
+                {{model.Integral}}
+            </label>
+        </div>
+    </form>
+    <div class="page-header  text-info">
+        <h4>优惠券信息：</h4>
+    </div>
+    <form name="form" class="form-horizontal col-padding-2 ">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">数量:</label>
+            <label class="col-sm-1 pt6">
+                {{voucher}} 张
+            </label>
+            <label class="col-sm-2 pt6 text-left">
+                <a href="javascript:;" ng-click="voucherDetail()">查看详情</a>
+            </label>
+        </div>
+    </form>
+</div>

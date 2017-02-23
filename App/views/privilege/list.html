@@ -1,0 +1,78 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        会员等级
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">名称</option>
+            </select>
+        </div>
+        <div class="col-lg-4 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-xs-1 ">名称</th>
+                <th class="col-xs-1">图标</th>
+                <th class="col-xs-1">统计</th>
+                <th class="col-xs-1">管理</th>
+                <th class="col-xs-1"><a href="#/privilege/form" class="btn btn-primary btn-xs">添加等级</a></th>
+            </tr>
+        </thead>
+        <tbody ng-show="!loadingState">
+            <tr ng-repeat="item in list">
+                <td>
+                    {{item.Name}}
+                </td>
+                <td>
+                    <img ng-src="{{item.IcoUrl | extension:'_35x35.png'}}"/>
+                </td>
+                <td>
+                    <button class="btn btn-xs btn-info" ng-click="lookupMembers(item)">
+                        会员<span class="badge">{{item.RefMemberCount}}人</span>
+                    </button>
+                    <a class="btn btn-xs btn-info" ng-click="lookupFeatures(item)">
+                        权限<span class="badge">{{item.RefFeaturesCount}}项</span>
+                    </a>
+                </td>
+                <td>
+                    <a href="#/privilege/listRechargeWay/{{item.Id}}" class="btn btn-success btn-xs">充值方式</a>
+                    <a href="#/privilege/listFeatures/{{item.Id}}" class="btn btn-success btn-xs">特权管理</a>
+                </td>
+                <td>
+                    <button type="button" ng-click="remove(item)" class="btn btn-danger btn-xs">删除</button>
+                    <a href="#/privilege/form/{{item.Id}}" class="btn btn-success btn-xs">编辑</a>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-show="loadingState">
+        <tr>
+            <td colspan="8" class="text-center">
+                <img width="60" src="/App/images/loading.gif"/>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

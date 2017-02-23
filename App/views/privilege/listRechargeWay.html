@@ -1,0 +1,70 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        <ol class="breadcrumb">
+            <li><a href="#/privilege/list">会员等级</a></li>
+            <li class="active">等级充值方式</li>
+        </ol>
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">标题</option>
+                <option value="2">描述</option>
+            </select>
+        </div>
+        <div class="col-lg-4 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-xs-1 ">标题</th>
+                <th class="col-xs-1">描述</th>
+                <th class="col-xs-1">持续时长(月)</th>
+                <th class="col-xs-1">花费</th>
+                <th class="col-xs-1">排序</th>
+                <th class="col-xs-1"><a href="#/privilege/{{privilegeId}}/rechargeWay" class="btn btn-primary btn-xs">添加充值方式</a></th>
+            </tr>
+        </thead>
+        <tbody ng-if="!loadingState">
+            <tr ng-repeat="item in list" ng-click="lookUp(item)" class="pointer">
+                <td>{{item.Title}}</td>
+                <td>{{item.Description | limitTo:'10'}}...</td>
+                <td>{{item.Duration}}</td>
+                <td>{{item.Cost|currency:'¥'}}</td>
+                <td>{{item.Sort}}</td>
+                <td>
+                    <button type="button" ng-click="remove(item)" class="btn btn-danger btn-xs">删除</button>
+                    <a href="#/privilege/rechargeWay/{{item.Id}}" class="btn btn-success btn-xs">编辑</a>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+        <tr>
+            <td colspan="8" class="text-center">
+                <img width="60" src="/App/images/loading.gif"/>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

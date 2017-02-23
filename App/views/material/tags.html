@@ -1,0 +1,15 @@
+﻿<div ng-if="loadingState">
+    <div class="row margin-top-4" ng-repeat="group in tags">
+        <div class="col-lg-1">
+            <label class="control-label pull-right text-size-14 text-info">{{group.Name}}:</label>
+        </div>
+        <div class="col-lg-10">
+            <label class="text-size-14 margin-left-4 icheckbox_square-orange " style="font-weight: normal" ng-repeat="tag in group.Tags">
+                <input type="checkbox" ng-model="tag.IsChoose" ng-change="change(tag)" /> {{tag.Name}}
+            </label>
+        </div>
+    </div>
+</div>
+<div ng-if="!loadingState" class="text-center pt100">
+    <img width="60" src="/App/images/loading.gif" />
+</div>

@@ -1,0 +1,58 @@
+﻿<div class="row">
+    <h4 ng-if="isCreate" class="page-header text-info">
+        <ol class="breadcrumb">
+            <li><a href="#/privilege/list">会员等级</a></li>
+            <li><a href="#/privilege/listRechargeWay/{{model.PrivilegeId}}">等级{{model.PrivilegeId}}充值方式</a></li>
+            <li class="active">新增充值方式</li>
+        </ol>
+    </h4>
+    <h4 ng-if="!isCreate" class="page-header text-info">
+        <ol class="breadcrumb">
+            <li><a href="#/privilege/list">会员等级</a></li>
+            <li><a href="#/privilege/listRechargeWay/{{model.PrivilegeId}}">等级{{model.PrivilegeId}}充值方式</a></li>
+            <li class="active">编辑充值方式</li>
+        </ol>
+    </h4>
+</div>
+<div class="row">
+        <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+            <div class="form-group form-group-sm  has-feedback ">
+                <label class="col-sm-1 control-label">标题:</label>
+                <div class="col-sm-3 {{form.title.$valid?'has-success':'has-error'}}">
+                    <input type="text" name="title" ng-model="model.Title" required class="form-control" ng-maxlength="50" placeholder="最多50个字符" />
+                    <span ng-if="!form.title.$error.required && !form.title.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    <span ng-if="form.title.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-sm has-feedback ">
+                <label class="col-sm-1 control-label ">描述:</label>
+                <div class="col-sm-3 {{form.description.$valid?'has-success':'has-error'}}">
+                    <textarea name="description" ng-model="model.Description" required class="form-control  h100 " ng-maxlength="500" placeholder="最多500个字符"></textarea>
+                    <span ng-if="!form.description.$error.required && !form.description.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    <span ng-if="form.description.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-sm has-feedback">
+                <label class="col-sm-1 control-label">持续时长(月):</label>
+                <div class="col-sm-2 {{form.month.$valid?'has-success':'has-error'}}">
+                    <input type="number" name="month" ng-model="model.Duration" required class="form-control" ng-maxlength="1000" placeholder="多少月">
+                    <span ng-if="!form.month.$error.required " class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                 </div>
+            </div>
+            <div class="form-group form-group-sm has-feedback">
+                <label class="col-sm-1 control-label">花费:</label>
+                <div class="col-sm-2  {{form.price.$valid?'has-success':'has-error'}}">
+                    <input type="number" name="price" ng-model="model.Cost" step="0.01" required class="form-control" ng-maxlength="1000" placeholder="多少元">
+                    <span ng-if="!form.price.$error.required " class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <label class="col-sm-1 control-label">排序:</label>
+                <div class="col-sm-2  {{form.sort.$valid?'has-success':'has-error'}}">
+                    <input type="number" name="sort" ng-model="model.Sort" required class="form-control" ng-maxlength="50" placeholder="最多50个字符"/>
+                    <span ng-if="!form.sort.$error.required " class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <div class="col-lg-offset-2"><button type="submit" class="btn btn-success">保存信息</button></div>
+            </div>
+        </form>
+</div>

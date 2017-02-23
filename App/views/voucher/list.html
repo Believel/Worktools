@@ -1,0 +1,98 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        点播券信息
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">按名称查询</option>
+                <option value="2">按描述查询</option>
+            </select>
+        </div>
+        <div class="col-lg-4 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name" placeholder="搜素字段包括：名称、描述">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover  table-bordered ">
+        <thead>
+            <tr class="form-group form-group-sm">
+                <th class="col-sm-1">名称</th>
+                <th class="col-sm-2">描述</th>
+                <th class="col-sm-1">使用范围</th>
+                <th class="col-sm-1">发放数量(张)</th>
+                <th class="col-sm-1">创建时间</th>
+                <th class="col-sm-1">发布人</th>
+                <th class="col-sm-1">计算公式</th>
+                <th class="col-sm-1"><a href="#/voucher/form" class="btn btn-primary btn-xs">添加点播券</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in list">
+                <td>
+                    {{item.Name}}
+                </td>
+                <td>
+                    {{item.Contents}}
+                </td>
+                <td>
+                    {{item.UseScope|enumVals:'VoucherUseScope'}}
+                </td>
+                <td>
+                    {{item.Total}}
+                </td>
+                <td>
+                    {{item.EventTime|date:'yyyy-MM-dd hh:mm:ss'}}
+                </td>
+                <td>
+                    {{item.AdminName}}
+                </td>
+                <td>
+                    {{item.Expression}}
+                </td>
+                <td>
+                    <button type="button" ng-click="remove(item)" class="btn btn-danger btn-xs">删除</button>
+                    <a href="#/voucher/form/{{item.Id}}/current/{{current}}/cook/{{item.Name}}" class="btn btn-success btn-xs">编辑</a>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="11">
+                    <div class="pull-right">
+                        <div class="pagination-info">
+                            <span class="ng-binding">共有{{total}}条</span>
+                            <div class="pagination-info">
+                                <select ng-model="pageTotal" class="form-control" ng-change="search(true)">
+                                    <option value="5">5条/页</option>
+                                    <option value="">10条/页</option>
+                                    <option value="20">20条/页</option>
+                                    <option value="30">30条/页</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pagination-info form-group-sm">跳至<input type="text" class="input-group-sm" ng-model="current" ng-change="search(true)" />页</div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="pageTotal||10" class="pagination-sm" previous-text="&lsaquo;"
+                                        next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+</div>
+

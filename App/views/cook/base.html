@@ -1,0 +1,104 @@
+﻿<form ng-if="loadingState" name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+    <div class="form-group form-group-sm has-feedback">
+        <label class="col-sm-1 control-label" for="inputTitle">显示标题:</label>
+        <div class="col-sm-4 {{form.title.$valid?'has-success':'has-error'}}">
+            <input type="text" name="title" id="inputTitle" ng-model="model.Title" ng-maxlength="50" placeholder="最多50个字符" required class="form-control ">
+            <span ng-if="!form.title.$error.required && !form.title.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-if="form.title.$error.maxlength " class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <label class="col-sm-1 control-label">视频Accesskey:</label>
+        <div class="col-sm-4 {{form.videoAccessKey.$valid?'has-success':'has-error'}}">
+            <input name="videoAccessKey" type="text" ng-model="model.VideoAccessKey" ng-maxlength="256" placeholder="最多256个字符" required class="form-control ">
+            <span ng-if="!form.videoAccessKey.$error.required && !form.videoAccessKey.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-if="form.videoAccessKey.$error.maxlength " class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+    </div>
+    <div class="form-group form-group-sm has-feedback">
+        <label class="col-sm-1 control-label">视频简介:</label>
+        <div class="col-sm-4 {{form.subject.$valid?'has-success':'has-error'}}">
+            <textarea name="subject" class="form-control  h50 " ng-model="model.Subject" ng-maxlength="60" required placeholder="最多60个字符"></textarea>
+            <span ng-if="!form.subject.$error.required && !form.subject.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-if="form.subject.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <label class="col-sm-1 control-label">SEO搜索关键词:</label>
+        <div class="col-sm-4  {{form.keywords.$valid?'has-success':'has-error'}}">
+            <textarea class="form-control  h50 " name="keywords" ng-maxlength="500" placeholder="每个关键词使用“,”点隔开,至少两个关键词！(最多500个字符)" required ng-model="model.Keywords"></textarea>
+            <span ng-if="!form.keywords.$error.required && !form.keywords.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-if="form.keywords.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+    </div>
+    <div class="form-group form-group-sm has-feedback">
+        <label class="col-sm-1 control-label">注意事项:</label>
+        <div class="col-sm-4  {{form.attentions.$valid?'has-success':'has-error'}}">
+            <textarea name="attentions" class="form-control  h50 " ng-model="model.Attentions" ng-maxlength="256" placeholder="最多256个字符" required></textarea>
+            <span ng-if="!form.attentions.$error.required && !form.attentions.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-if="form.attentions.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <label class="col-sm-1 control-label">小贴士:</label>
+        <div class="col-sm-4 {{form.note.$valid?'has-success':'has-error'}}">
+            <textarea name="note" class="form-control  h50 " ng-model="model.Note" ng-maxlength="500" placeholder="最多500个字符" required></textarea>
+            <span ng-if="!form.note.$error.required && !form.note.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-if="form.note.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+    </div>
+    <div class="form-group form-group-sm has-feedback">
+        <label class="col-sm-1 control-label">选购方法:</label>
+        <div class="col-sm-4 {{form.purchase.$valid?'has-success':'has-error'}}">
+            <textarea name="purchase" class="form-control  h50 " ng-model="model.Purchase" ng-maxlength="256" placeholder="最多256个字符" required></textarea>
+            <span ng-if="!form.purchase.$error.required && !form.purchase.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-if="form.purchase.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <label class="col-sm-1 control-label">条形码:</label>
+        <div class="col-sm-4  {{form.sn.$valid?'has-success':'has-error'}}">
+            <input type="text" name="sn" ng-model="model.Sn" ng-maxlength="100" required class="form-control " placeholder="最多100个字符">
+            <span ng-if="!form.sn.$error.required  && !form.sn.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+            <span ng-if="form.sn.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+    </div>
+    <div class="form-group form-group-sm ">
+        <label class="col-sm-1 control-label">难易程度:</label>
+        <div class="col-sm-4">
+            <select ng-model="model.Difficulty" ng-options="choose.Val as choose.Name for choose in difficulties" class="form-control"> </select>
+        </div>
+        <label class="col-sm-1 control-label">辣度:</label>
+        <div class="col-sm-4">
+            <select ng-model="model.Peppery" ng-options="choose.Val as choose.Name for choose in pepperies" class="form-control"> </select>
+        </div>
+    </div>
+    <div class="form-group form-group-sm ">
+        <label class="col-sm-1 control-label">访问等级:</label>
+        <div class="col-sm-4">
+            <select ng-model="model.VideoLevel" ng-options="choose.Val as choose.Name for choose in videoLevels" class="form-control"> </select>
+        </div>
+    </div>
+    <div ng-if="model.ImgAccessKey" class="form-group">
+        <!--上传预览图片显示这个-->
+        <label class="col-sm-1 control-label">展示图片:</label>
+        <div class="col-sm-4">
+            <img class="img-thumbnail" ng-src="{{imgFormat(model.ImgAccessKey)}}">
+        </div>
+    </div>
+    <div class="form-group ">
+        <label class="col-sm-1 control-label"></label>
+        <div class="col-sm-4">
+            <input k-upload="/api/files/upload/VideoThumb" ng-model="model.ImgAccessKey" type="button" value="上传视频封面 " />
+        </div>
+    </div>
+    <div class="form-group form-group-sm ">
+        <label class="col-sm-1 control-label">视频描述:</label>
+        <div class="col-sm-10">
+            <div keditor ng-model="model.Contents" style="width: 100%; height: 400px;" data-config="config"></div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="col-sm-offset-2 col-sm-1">
+            <button type="submit" class="btn btn-success">保存信息</button>
+        </div>
+        <div class="col-sm-offset-1 col-sm-1">
+            <a href class="btn btn-info"  back-button>返回列表</a>
+        </div>
+    </div>
+</form>
+<div ng-if="!loadingState" class="text-center pt100">
+    <img width="60" src="/App/images/loading.gif" />
+</div>

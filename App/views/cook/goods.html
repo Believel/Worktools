@@ -1,0 +1,47 @@
+﻿<form  ng-if="loadingState" name="form" ng-submit="goodsSave(form.$valid)" class="form-horizontal col-padding-top">
+    <div class="form-group form-group-sm has-feedback ">
+        <label class="col-sm-1 control-label">商品名称:</label>
+        <div class="col-sm-3 {{form.goods.$valid?'has-success':'has-error'}}">
+            <input type="text" name="goods" ng-model="goods.Name" required ng-maxlength="256" class="form-control" placeholder="最多256个字符">
+            <span ng-if="!form.goods.$error.required && !form.goods.$error.maxlength " class="glyphicon glyphicon-ok form-control-feedback" ></span>
+            <span ng-if="form.goods.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback" ></span>
+        </div>
+    </div>
+    <div class="form-group form-group-sm ">
+        <label class="col-sm-1 control-label">市场价:</label>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <input type="number" ng-model="goods.MarkPrice" step="0.001" required class="form-control">
+                <span class="input-group-addon">¥</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm ">
+        <label class="col-sm-1 control-label">价格:</label>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <input type="number" ng-model="goods.Price" required step="0.001" class="form-control">
+                <span class="input-group-addon">¥</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-group-sm ">
+        <label class="col-sm-1 control-label">状态:</label>
+        <div class="col-sm-2">
+            <label class="radio-inline">
+                <input type="radio" name="IsUnder" ng-value="true" ng-model="goods.IsUnder">上架
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="IsUnder" ng-value="false" ng-model="goods.IsUnder">下架
+            </label>
+        </div>
+    </div>
+    <div class="form-group form-group-sm">
+        <div class="col-lg-offset-1">
+            <button type="submit" class="btn btn-success">保存信息</button>
+        </div>
+    </div>
+</form>
+<div ng-if="!loadingState" class="text-center pt100">
+    <img width="60" src="/App/images/loading.gif" />
+</div>

@@ -1,0 +1,66 @@
+﻿<div class="modal-header">
+    <h4>
+        用户反馈详细
+    </h4>
+</div>
+<div class="modal-body">
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">
+                描述：
+            </label>
+            <div class="col-sm-3 pt6 text-left">
+                {{model.Description}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm" ng-if="model.FeedbackOptions!=null">
+            <label class="col-sm-2 control-label text-info">快速回复标题:</label>
+            <div class="col-sm-2 pt6 text-left ">
+                {{model.FeedbackOptions.Title}}
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm" ng-if="model.FeedbackOptions!=null">
+            <label class="col-sm-2 control-label text-info">快速回复内容:</label>
+            <div class="col-sm-5 pt6 text-left">
+                {{model.FeedbackOptions.Description}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">来自平台:</label>
+            <div class="col-sm-2 pt6 ">
+                {{model.Platform}}
+            </div>
+        </div> 
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">处理状态:</label>
+            <div class="btn-group btn-group-xs mg13" role="group">
+                <button ng-repeat="item in feedbackState" type="button" ng-click="changeState(model.Id,item.Val)" class="btn btn-{{model.State==item.Val?'success':'default'}}">
+                    {{item.Name}}
+                </button>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label text-info">联系电话、QQ:</label>
+            <div class="col-sm-2 pt6 text-left">
+                {{model.Contact}}
+            </div>
+        </div>
+        <div class="form-group form-group-sm" ng-if="model.MemberId!=null">
+            <label class="col-sm-2 control-label text-info">查看会员详情:</label>
+            <div class="col-sm-2 pt6 text-left">
+                <button type="button" ng-click="viewMember(model.MemberId)" class="btn btn-success btn-xs">会员</button>
+            </div>
+        </div>
+        <div class="form-group form-group-sm" ng-if="pictures.length!=0">
+            <label class="col-sm-2 control-label text-info">问题图片:</label>
+            <div class="col-sm-2" ng-repeat="item in pictures">
+                <a href="javascript:;" ng-click="viewPicture(item)"><img class="img-thumbnail" ng-src="{{item.ImgAccessKey}}.jpg" /></a>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="close()">关闭窗口</button>
+</div>

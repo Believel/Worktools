@@ -1,0 +1,77 @@
+﻿<div class="row">
+    <h4 ng-if="isCreate" class="page-header text-info">
+        新增活动专题信息
+    </h4>
+    <h4 ng-if="!isCreate" class="page-header text-info">
+        编辑活动专题信息
+    </h4>
+</div>
+<div class="row">
+    <div>
+        <uib-tabset>
+            <uib-tab heading="活动专题信息">
+                <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+                    <div class="form-group form-group-sm has-feedback">
+                        <label class="col-sm-1 control-label">活动标题:</label>
+                        <div class="col-sm-4 {{form.Title.$valid?'has-success':'has-error'}}">
+                            <input type="text" ng-model="model.Title" name="Title" ng-maxlength="100" required class="form-control" placeholder="最多100个字符">
+                            <span ng-if="!form.Title.$error.required && !form.Title.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            <span ng-if="form.Title.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm has-feedback">
+                        <label class="col-sm-1 control-label">简述:</label>
+                        <div class="col-sm-4 {{form.Summary.$valid?'has-success':'has-error'}}">
+                            <textarea ng-model="model.Summary" name="Summary" required class="form-control" placeholder="最多256个字符" ng-maxlength="256"></textarea>
+                            <span ng-if="!form.Summary.$error.required && !form.Summary.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            <span ng-if="form.Summary.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm has-feedback">
+                        <label class="col-sm-1 control-label">调用Key:</label>
+                        <div class="col-sm-2 {{form.CallKey.$valid?'has-success':'has-error'}}">
+                            <input type="text" ng-model="model.CallKey" name="CallKey" ng-maxlength="100" required class="form-control" placeholder="最多100个字符">
+                            <span ng-if="!form.CallKey.$error.required && !form.CallKey.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            <span ng-if="form.CallKey.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </div>
+                        <label class="col-sm-1 control-label has-feedback">排序:</label>
+                        <div class="col-sm-1 ">
+                            <input type="number" ng-model="model.Sort" name="Sort" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm has-feedback">
+                        <label class="col-sm-1 control-label">URL地址:</label>
+                        <div class="col-sm-4 {{form.CallKey.$valid?'has-success':'has-error'}}">
+                            <input type="text" ng-model="model.Url" name="Url" ng-maxlength="256" required class="form-control" placeholder="最多256个字符">
+                            <span ng-if="!form.Url.$error.required && !form.Url.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            <span ng-if="form.Url.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        </div>
+                    </div>
+                    <div ng-if="model.ImgAccessKey" class="form-group ">
+                        <!--新增界面不显示展示图-->
+                        <label class="col-sm-1 control-label">展示活动图:</label>
+                        <div class="col-sm-4">
+                            <img class="img-thumbnail" ng-src="{{imgFormat(model.ImgAccessKey)}}">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm ">
+                        <label class="col-sm-1 control-label">上传活动图:</label>
+                        <div class="col-sm-4">
+                            <input k-upload="/api/files/upload/Activities" ng-model="model.ImgAccessKey" type="button" value="上传活动专题展示图 " />
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-offset-1 col-sm-1">
+                            <button type="submit" class="btn btn-success">保存信息</button>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-1">
+                            <a href class="btn btn-info" back-button>返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>
+
+

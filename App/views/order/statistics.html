@@ -1,0 +1,112 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        订单统计
+    </h4>
+    <form class="form-horizontal">
+        <div class="col-lg-1 clear-padding">
+            <select ng-model="type" class="form-control">
+                <option value="">所有相关</option>
+                <option value="1">商品名称</option>
+                <option value="2">订单编号</option>
+            </select>
+        </div>
+        <div class="col-lg-4 clear-padding">
+            <div ce-enter="search" class="input-group">
+                <input type="text" class="form-control" ng-model="Name" placeholder="输入商品名称或订单号进行搜索">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" ng-click="search(false)" type="button">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1 pt8 ">
+            <a ng-if="isComplex" ng-click="openPannel()">更多搜索条件</a>
+            <a ng-if="!isComplex" ng-click="openPannel()">精简筛选条件</a>
+        </div>
+        <br /><br />
+        <div uib-collapse="isCollapsed">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-1 control-label">支付类型:</label>
+                <div class="col-sm-2">
+                    <select ng-model="typePay" class="form-control">
+                        <option value="">全部</option>
+                        <option value="1">支付宝</option>
+                        <option value="2">微信</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group ">
+                <label class="col-sm-1 control-label">成交时间：</label>
+                <div class="col-md-2">
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                               ng-model="from.date" is-open="from.openStatus" max-date="to.date"
+                               datepicker-options="dateOptions" show-weeks="false" ng-required="true"
+                               close-text="关闭" clear-text="清除" current-text="今天" ng-click="open(from)" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open(from)">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+                <label class="col-sm-1 control-label">到：</label>
+                <div class="col-md-2">
+                    <p class="input-group">
+                        <input type="date" class="form-control" uib-datepicker-popup="{{format}}"
+                               ng-model="to.date" is-open="to.openStatus" min-date="from.date"
+                               datepicker-options="dateOptions" show-weeks="false" ng-required="true"
+                               close-text="关闭" clear-text="清除" current-text="今天" ng-click="open(to)" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open(to)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="form-group form-group-sm margin-left-4">
+                <button type="button" class="btn btn-success" ng-click="superSearch(false)">搜索</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th class="col-xs-1 ">订单编号</th>
+            <th class="col-xs-1 ">商品名称</th>
+            <th class="col-xs-1">单价</th>
+            <th class="col-xs-1">数量</th>
+            <th class="col-xs-1"> 实付款</th>
+            <th class="col-xs-1"> 交易状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in list">
+            <td>{{item.OrderNs}}</td>
+            <td>{{item.CookTitle}}</td>
+            <td>{{item.Price}}</td>
+            <td>{{item.Number}}</td>
+            <td>{{item.ActualPay}}</td>
+            <td>{{item.State|enumVals:'OrderState'}}</td>
+        </tr>
+        </tbody>
+        <tbody ng-show="loadingState">
+            <tr>
+                <td colspan="8" class="text-center">
+                    <img width="60" src="/App/images/loading.gif" />
+                </td>
+            </tr>
+        </tbody>
+        <tfoot ng-show="!loadingState">
+            <tr>
+                <td colspan="8">
+                    <div class="pull-right">
+                        <div class="pagination-info"><span class="ng-binding">共有{{total}}条</span>， <span class="ng-binding">每页显示：{{size}}条</span></div>
+                        <uib-pagination boundary-links="true" total-items="total" ng-model="current" max-size="10" ng-change="search(true)" items-per-page="size"
+                                        class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></uib-pagination>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,90 @@
+﻿<div class="row">
+    <h4 ng-if="isCreate" class="page-header text-info">
+        添加广告信息
+    </h4>
+    <h4 ng-if="!isCreate" class="page-header text-info">
+        编辑广告信息
+    </h4>
+</div>
+<div class="row">
+    <div>
+        <uib-tabset>
+            <uib-tab heading="广告基本信息">
+                <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">
+                            广告标题:
+                        </label>
+                        <div class="col-sm-3">
+                            <input class="form-control" ng-model="model.Title" required type="text" />
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">图片位置:</label>
+                        <div class="col-sm-1">
+                            <select ng-model="model.Location" ng-options="choose.Val as choose.Name for choose in Locations" class="form-control"> </select>
+                        </div>
+                        <label class="col-sm-1 control-label">图片状态:</label>
+                        <div class="col-sm-1">
+                            <select ng-model="model.State" ng-options="choose.Val as choose.Name for choose in States" class="form-control"> </select>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">跳转类型:</label>
+                        <div class="col-sm-2">
+                            <select ng-model="model.Type" ng-options="choose.Val as choose.Name for choose in ImgTypes" class="form-control"> </select>
+                        </div>
+                    </div>
+                    <!--显示要关联url地址-->
+                    <div class="form-group form-group-sm" ng-if="model.Type==1">
+                        <label class="col-sm-1 control-label">关联URL地址:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" required ng-model="model.Url" placeholder="请填写关联的URL地址" />
+                        </div>
+                    </div>
+                    <!--显示input框，选择关联视频的名称-->
+                    <div class="form-group form-group-sm" ng-if="model.Type==2">
+                        <label class="col-sm-1 control-label">关联视频:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" ng-click="showVideoList()" required ng-model="model.ShowVideoName" placeholder="请单击此文本框进行视频关联"/><!--只是显示作用而已-->
+                        </div>
+                    </div>
+                    <!--显示要关联社区版块名称-->
+                    <div class="form-group form-group-sm" ng-if="model.Type==3">
+                        <label class="col-sm-1 control-label">关联社区版块:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" ng-click="showForumTopicList()"  required ng-model="model.ShowForumTopic" placeholder="请单击此文本框进行社区版块关联"/>
+                        </div>
+                    </div>
+                    <!--显示要关联帖子名称、-->
+                    <div class="form-group form-group-sm" ng-if="model.Type==4">
+                        <label class="col-sm-1 control-label">关联帖子:</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" ng-click="showForumPostList()"  required ng-model="model.ShowForumPost" placeholder="请单击此文本框进行帖子关联" />
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm" ng-if="model.ImgAccessKey">
+                        <label class="col-sm-1 control-label">展示图片:</label>
+                        <div class="col-sm-2">
+                            <img class="img-thumbnail" ng-src="{{imgFormat(model.ImgAccessKey)}}">
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label class="col-sm-1 control-label">上传图片:</label>
+                        <div class="col-sm-3">
+                            <input k-upload="/api/files/upload/Banner" ng-model="model.ImgAccessKey" type="button" value="上传广告图片 " />
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="col-sm-offset-1 col-sm-1">
+                            <button type="submit" class="btn btn-success">保存信息</button>
+                        </div>
+                        <div class="col-sm-offset-1 col-sm-1">
+                            <a href class="btn btn-info" back-button>返回列表</a>
+                        </div>
+                    </div>
+                </form>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿<div class="modal-header">
+    <h4 ng-if="isCreate" class="modal-title">新增事件</h4>
+    <h4 ng-if="!isCreate" class="modal-title">编辑事件</h4>
+</div>
+<div class="modal-body">
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">做菜步骤序号:</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="model.EventTime" required class="form-control" placeholder="请填写大于0的正整数">
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">描述:</label>
+            <div class="col-sm-9">
+                <textarea ng-model="model.Message" required class="form-control w400" placeholder="最多500字符"></textarea>
+            </div>
+        </div>
+        <!--新增界面没有放大看图功能-->
+        <div ng-if="isCreate">
+            <div ng-if="model.ImgAccessKey" class="form-group ">
+                <!--新增界面不显示展示图-->
+                <label class="col-sm-2 control-label">展示事件图:</label>
+                <div class="col-sm-3">
+                    <img class="img-thumbnail" ng-src="{{imgEventFormat(model.ImgAccessKey)}}">
+                </div>
+            </div>
+        </div>
+        <div ng-if="!isCreate">
+            <div ng-if="model.ImgAccessKey" class="form-group ">
+                <!--新增界面不显示展示图-->
+                <label class="col-sm-2 control-label">展示事件图:</label>
+                <div class="col-sm-3">
+                    <a href="javascript:;" ng-click="viewPicture(model.ImgAccessKey)"><img class="img-thumbnail" ng-src="{{imgEventFormat(model.ImgAccessKey)}}"></a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-2 control-label">上传事件图:</label>
+            <div class="col-sm-3">
+                <input k-upload="/api/files/upload/CookEvent" ng-model="model.ImgAccessKey" type="button" value="上传做菜事件图片 " />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" ng-click="cancel()">取消</button>
+    <button class="btn btn-success" ng-click="save()">保存</button>
+</div>

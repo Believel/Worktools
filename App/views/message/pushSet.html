@@ -1,0 +1,156 @@
+﻿<div class="row">
+    <h4 class="page-header text-info">
+        消息推送管理
+    </h4>
+</div>
+<div class="row">
+    <form name="form" ng-submit="save(form.$valid)" class="form-horizontal col-padding-top">
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">被推送人:</label>
+            <div class="col-sm-4">
+                <input name="receiver" class="form-control" ng-model="Members" ng-click="members()" type="text" placeholder="此文本框用于单个用户发送,点击右侧按钮获取更多筛选条件" />
+            </div>
+
+            <div class="col-lg-1">
+                <a class="btn btn-success" ng-if="isComplex" ng-click="openPannel()">更多搜索条件</a>
+                <a class="btn btn-success" ng-if="!isComplex" ng-click="openPannel()">精简筛选条件</a>
+            </div>
+            <br /><br />
+
+            <div class="col-lg-10  col-lg-offset-1 row" uib-collapse="isCollapsed">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-4">
+                        选择
+                        <!--<th ng-click="checked(item)">-->
+                        <!--<input type="checkbox" ng-model="selectAll" ng-click="showCalendar()"/>-->
+                        <!--<span ng-hide="selectAll">全选</span>
+                        <span ng-show="selectAll">取消全选</span>-->
+                    </div>
+                    <div class="col-sm-4">条件说明</div>
+                    <div class="col-sm-4">条件选择</div>
+                </div>
+
+                <div class="form-group " ng-show="!loadingState">
+
+                    <div class="col-sm-2">
+                        <input type="checkbox" ng-checked="selectAll" ng-click="showInpuTime(true)">
+                    </div>
+                    <div class="col-sm-4" ng-if="!IsshowCalendar">按照用户注册时间段筛选用户</div>
+                    <div class="col-sm-6" ng-if="IsshowCalendar">
+
+                            <p class="col-sm-1">起始：</p>
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}"
+                                           ng-model="model.BeginDate" is-open="from.openStatus" max-date="to.date"
+                                           datepicker-options="dateOptions" show-weeks="false" ng-required="true"
+                                           close-text="关闭" clear-text="清除" current-text="今天" ng-click="open(from)" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open(from)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </p>
+                            </div>
+                            <p class="col-sm-1">结束：</p>
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="date" class="form-control" uib-datepicker-popup="{{format}}"
+                                           ng-model="model.EndDate" is-open="to.openStatus" min-date="from.date"
+                                           datepicker-options="dateOptions" show-weeks="false" ng-required="true"
+                                           close-text="关闭" clear-text="清除" current-text="今天" ng-click="open(to)" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open(to)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label ng-if="IsshowCalendar"><input name="condition1" type="radio" ng-value="true" ng-model="model.Cond1" />或者 </label>
+                        <label ng-if="IsshowCalendar" class="ml20"><input name="condition1" type="radio" ng-value="false" ng-model="model.Cond1" />并且 </label>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm" ng-show="!loadingState">
+                    <div class="col-sm-2">
+                        <input type="checkbox" ng-checked="selectAll" ng-click="showLevel()">
+                    </div>
+                    <div class="col-sm-4" ng-if="!IsShowLevel">按照用户当前的等级筛选用户</div>
+                    <div class="col-sm-6" ng-if="IsShowLevel">
+                        <label>等级V1：<input type="checkbox" ng-model="model.V1" /></label>
+                        <label class="ml20">等级V2：<input type="checkbox" ng-model="model.V2" /></label>
+                        <label class="ml20">等级V3：<input type="checkbox" ng-model="model.V3" /></label>
+                        <label class="ml20">等级V4：<input type="checkbox" ng-model="model.V4" /></label>
+                        <label class="ml20">等级V5：<input type="checkbox" ng-model="model.V5" /></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label ng-if="IsShowLevel"><input name="condition2" type="radio" ng-value="true" ng-model="model.Cond2" />或者 </label>
+                        <label ng-if="IsShowLevel" class="ml20"><input name="condition2" ng-value="false" type="radio" ng-model="model.Cond2" />并且 </label>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm" ng-show="!loadingState">
+                    <div class="col-sm-2">
+                        <input type="checkbox" ng-checked="selectAll" ng-click="showVip()">
+                    </div>
+                    <div class="col-sm-4" ng-if="!IsShowVip">按照用户的Vip状态筛选用户</div>
+                    <div class="col-sm-6" ng-if="IsShowVip">
+                        <label>付费会员：<input type="checkbox" ng-model="model.General" /></label>
+                        <label class="ml20">未付费会员：<input type="checkbox" ng-model="model.Vip" /></label>
+                        <label class="ml20">过期会员：<input type="checkbox" ng-model="model.Outdated" /></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label ng-if="IsShowVip"><input name="condition3" type="radio" ng-value="true" ng-model="model.Cond3" />或者 </label>
+                        <label ng-if="IsShowVip" class="ml20"><input name="condition3" ng-value="false" type="radio" ng-model="model.Cond3" />并且 </label>
+                    </div>
+                </div>
+
+                <div class="form-group form-group-sm" ng-show="!loadingState">
+                    <div class="col-sm-2">
+                        <input type="checkbox" ng-checked="selectAll" ng-click="showFrom()">
+                    </div>
+                    <div class="col-sm-4" ng-if="!IsShowFrom">按照用户来自平台筛选用户</div>
+                    <div class="col-sm-6" ng-if="IsShowFrom">
+                        <label>Android：<input type="checkbox" ng-model="model.Android" /></label>
+                        <label class="ml20">iOS：<input type="checkbox" ng-model="model.iOS" /></label>
+                        <label class="ml20">WinPhone：<input type="checkbox" ng-model="model.WinPhone" /></label>
+                        <label class="ml20">PC：<input type="checkbox" ng-model="model.PC" /></label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label ng-if="IsShowFrom"><input name="condition4" type="radio" ng-value="true" ng-model="model.Cond4" />或者 </label>
+                        <label ng-if="IsShowFrom" class="ml20"><input name="condition4" ng-value="false" type="radio" ng-model="model.Cond4" />并且 </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-group-sm ">
+            <label class="col-sm-1 control-label">推送类型:</label>
+            <div class="col-sm-4">
+                <select ng-model="model.Type" ng-options="choose.Val as choose.Name for choose in type" class="form-control"> </select>
+            </div>
+        </div>
+        <div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">关联ObjectId:</label>
+            <div class="col-sm-4 ">
+                <input name="subject" type="text" class="form-control" ng-model="model.ObjectId" ng-maxlength="500" required placeholder="最多500个字符"/>
+        </div>
+</div>
+<div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label">链接地址:</label>
+            <div class="col-sm-4 ">
+                <input type="text" name="title" id="inputTitle" ng-model="model.Url" ng-maxlength="50" placeholder="http://" required class="form-control ">
+    </div>
+</div>
+<div class="form-group form-group-sm has-feedback">
+            <label class="col-sm-1 control-label" for="inputTitle">消息:</label>
+            <div class="col-sm-4 ">
+                <textarea name="subject" class="form-control  h100 " ng-model="model.Message" ng-maxlength="500" required placeholder="最多500个字符"></textarea>
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    <div class="col-sm-offset-1">
+                <button type="submit" ng-click="pushMsg()" class="btn btn-success radius">推送</button>
+    </div>
+</div>
+    </form>
+</div>
